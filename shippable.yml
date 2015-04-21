@@ -1,0 +1,48 @@
+#
+# FirstMate-Prototype Shippable Build Config
+# Configuration for Frontend build environment
+#
+
+# Language setting
+language: node_js
+
+# Node version
+node_js:
+ - 0.12
+
+# Specify the build_image
+build_image: shippableimages/ubuntu1404_nodejs
+
+# Setup docker and node.js environment
+before_install:
+ - source ~/.nvm/nvm.sh && nvm install $SHIPPABLE_NODE_VERSION
+ - node --version
+
+# Install the required dependencies
+install:
+ - npm install -g bower
+ - npm install -g grunt-cli
+ - npm install -g protractor && webdriver-manager update
+ - npm install
+
+env:
+  global:
+  - ORG=spectrakey PROJECT=firstmate-prototype
+  - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
+
+# Setup report folders
+before_script:
+ - mkdir -p $CI_REPORTS
+ - mkdir -p $COVERAGE_REPORTS
+
+# Running npm test to run your test cases
+script:
+ - grunt test:development
+ - grunt test
+ - grunt e2e --ci
+
+# Test coverage reports
+after_script:
+ - cp -R ./coverage/* $COVERAGE_REPORTS
+
+archive: true

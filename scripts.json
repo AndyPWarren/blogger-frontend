@@ -1,0 +1,9 @@
+{
+    "vendor": [
+        "./app/bower_components/angular/angular.js",
+        "./app/bower_components/angular-route/angular-route.js"
+    ],
+    "application": [
+        "./app/app.js"
+    ]
+}
