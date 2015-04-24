@@ -4,6 +4,8 @@
         "./app/bower_components/angular-route/angular-route.js"
     ],
     "application": [
-        "./app/app.js"
+        "./app/app.js",
+        "./app/components/fm-nav/nav.js",
+        "./app/components/fm-nav/navbar/navbar.js"
     ]
 }
