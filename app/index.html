@@ -43,6 +43,8 @@
 </head>
 <body>
 
+    <fm-header data-user="current" data-group="current.group"></fm-header>
+
     <ng-view></ng-view>
 
     <!--[if lt IE 8]>
@@ -62,6 +64,8 @@
     <script src="./bower_components/angular/angular.js"></script>
     <script src="./bower_components/angular-route/angular-route.js"></script>
     <script src="./app.js"></script>
+    <script src="./components/fm-header/header.js"></script>
+    <script src="./components/fm-header/HeaderService.js"></script>
     <script src="./components/fm-nav/nav.js"></script>
     <script src="./components/fm-nav/navbar/navbar.js"></script>
     <!-- /build -->

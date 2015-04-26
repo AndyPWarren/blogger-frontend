@@ -5,6 +5,8 @@
     ],
     "application": [
         "./app/app.js",
+        "./app/components/fm-header/header.js",
+        "./app/components/fm-header/HeaderService.js",
         "./app/components/fm-nav/nav.js",
         "./app/components/fm-nav/navbar/navbar.js"
     ]
