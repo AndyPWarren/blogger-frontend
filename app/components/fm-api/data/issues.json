@@ -1,0 +1,13 @@
+[
+    {
+        "title": "An issue",
+        "author": {
+            "fullName": "John Smith",
+            "avatar": [{}]
+        },
+        "status": 1,
+        "createdAt": "2015-04-19T12:59:23+00:00",
+        "updatedAt": "2015-04-19T12:59:23+00:00",
+        "commentCount": 1
+    }
+]

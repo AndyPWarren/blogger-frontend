@@ -1,0 +1,18 @@
+{
+    "fullName": "John Smith",
+    "firstName": "John",
+    "lastName": "Smith",
+    "avatar": {
+        "sm": {
+            "url": "http://placehold.it/24"
+        }
+    },
+    "group": {
+        "hero": {
+            "lg": { "url": "http://placehold.it/1920x400" }
+        },
+        "name": "Mandarin",
+        "slug": "mandarin",
+        "tagline": "Private syndicate..."
+    }
+}
