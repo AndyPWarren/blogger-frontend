@@ -5,6 +5,7 @@
  * @author   SpectraKey
  */
 angular.module("fmPrototype", [
+    "fmPrototype.api",
     "fmPrototype.header",
     "fmPrototype.nav",
     "ngRoute"
