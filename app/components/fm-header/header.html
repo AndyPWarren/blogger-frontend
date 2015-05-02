@@ -1,0 +1,24 @@
+<header class="container-fluid">
+    <div class="row">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header navbar-center">
+                    <a class="navbar-brand" href="#">
+                        FirstMate
+                    </a>
+                </div>
+                <p class="navbar-text navbar-right">
+                    <a href="#" class="navbar-link">
+                        <img class="img-circle" ng-src="{{ user.avatar.sm.url }}" alt="{{ user.fullName }}">
+                    </a>
+                </p>
+            </div>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="jumbotron" ng-style="{ 'background-image': 'url(' + hero.lg.url + ')' }">
+            <h2>{{ heading }}</h2>
+            <p>{{ tagline }}</p>
+        </div>
+    </div>
+</header>

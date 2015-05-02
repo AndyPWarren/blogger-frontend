@@ -9,6 +9,10 @@
         "./app/components/fm-api/api.js",
         "./app/components/fm-api/factories/GroupsResource.js",
         "./app/components/fm-api/factories/IssuesResource.js",
-        "./app/components/fm-api/factories/UsersResource.js"
+        "./app/components/fm-api/factories/UsersResource.js",
+        "./app/components/fm-header/header.js",
+        "./app/components/fm-header/HeaderService.js",
+        "./app/components/fm-nav/nav.js",
+        "./app/components/fm-nav/navbar/navbar.js"
     ]
 }

@@ -43,6 +43,8 @@
 </head>
 <body>
 
+    <fm-header data-user="current" data-group="current.group"></fm-header>
+
     <ng-view></ng-view>
 
     <!--[if lt IE 8]>
@@ -67,6 +69,10 @@
     <script src="./components/fm-api/factories/GroupsResource.js"></script>
     <script src="./components/fm-api/factories/IssuesResource.js"></script>
     <script src="./components/fm-api/factories/UsersResource.js"></script>
+    <script src="./components/fm-header/header.js"></script>
+    <script src="./components/fm-header/HeaderService.js"></script>
+    <script src="./components/fm-nav/nav.js"></script>
+    <script src="./components/fm-nav/navbar/navbar.js"></script>
     <!-- /build -->
     <!-- build:remove -->
     <script src="./config/config.js"></script>
