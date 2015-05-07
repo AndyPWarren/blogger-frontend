@@ -1,15 +1,15 @@
 "use strict";
 /**
- * Factory which provides mock data for issues resource
- * @class    IssuesResource
- * @module   blPrototype.api.issues
- * @author   SpectraKey
+ * Factory which provides mock data for sites resource
+ * @class    SitesResource
+ * @module   blPrototype.api.sites
+ * @author   Andrew Warren
  */
-angular.module("blPrototype.api.issues", [
+angular.module("blPrototype.api.sites", [
     "ngResource"
 ])
 
-.factory("IssuesResource", [
+.factory("SitesResource", [
     "$resource",
     /**
      * @constructor
@@ -17,16 +17,17 @@ angular.module("blPrototype.api.issues", [
      */
     function ($resource) {
 
-        return $resource("components/bl-api/data/issues.json",
+        return $resource("components/bl-api/data/sites.json",
             {},
             // Hash with declaration of custom action that should
             // extend the default set of resource actions
             {
                 get: {
-                    url: "components/bl-api/data/issue.json"
+                    url: "components/bl-api/data/site.json"
                 }
             }
         );
+
 
     }
 ]);
