@@ -1,4 +1,4 @@
-# FirstMate Frontend Prototype
+# Blogger Frontend Prototype
 
 This project structure is based on the [angular-seed](https://github.com/angular/angular-seed) application skeleton for a typical [AngularJS][angular] web app.
 
@@ -9,14 +9,14 @@ The project is preconfigured to install the Angular framework and a bunch of dev
 
 To get you started you can simply clone the repository and install the dependencies:
 
-### Clone the FirstMate Prototype repository
+### Clone the Blogger Prototype repository
 
-Clone the firstmate-prototype repository using [git][git]:
+Clone the blogger-prototype repository using [git][git]:
 
 ```
 cd path/to/parent/directory
-git clone git@bitbucket.org:spectrakey/firstmate-prototype.git
-cd firstmate-prototype
+git clone git@bitbucket.org:spectrakey/blogger-prototype.git
+cd blogger-prototype
 ```
 
 
@@ -32,7 +32,7 @@ We have two kinds of dependencies in this project: tools and angular framework c
 The following tools require super user privileges so you will need to install them separately like so:
 
 ```
-sudo npm install -g bower 
+sudo npm install -g bower
 sudo npm install -g grunt-cli
 ```
 
@@ -95,11 +95,11 @@ To watch all files run:
 grunt serverall
 ```
 
-To run tests or compile less to css when the relevent files are updated. 
+To run tests or compile less to css when the relevent files are updated.
 
 ### Running the build script
 
-To create a build to deploy for a production environment simply run: 
+To create a build to deploy for a production environment simply run:
 
 ```
 grunt build -env production
@@ -109,13 +109,13 @@ The build files will then be in the `dist/` directory.
 
 ### Creating a new release
 
-To create a new release simply run: 
+To create a new release simply run:
 
 ```
 grunt release --setversion X.Y.Z
 ```
 
-Where `X.Y.Z` is the new version number. This will update `package.json` 
+Where `X.Y.Z` is the new version number. This will update `package.json`
 and `bower.json` with the new version number and then run `grunt build` before
 committing the changes to git.
 
@@ -170,7 +170,7 @@ tests/                  --> test config and source files
 
 ## Testing
 
-There are two kinds of tests in the firstmate-prototype application: Unit tests and End to End tests.
+There are two kinds of tests in the blogger-prototype application: Unit tests and End to End tests.
 
 ### Running Unit Tests
 
@@ -221,7 +221,7 @@ grunt e2e
 ```
 
 Behind the scenes this will also run `webdriver-manager update && webdriver-manager start`. This will download and install the latest version of the stand-alone WebDriver tool and start the Selenium web server. This script will execute the end-to-end tests against the application being hosted on the
-development server. 
+development server.
 
 
 ## More info

@@ -1,11 +1,11 @@
 {
-  "name": "firstmate-prototype",
+  "name": "blogger-prototype",
   "private": true,
   "version": "0.0.0",
-  "description": "FirstMate Frontend Prototype",
-  "repository": "https://bitbucket.org/spectrakey/firstmate-prototype",
+  "description": "Blogger Frontend Prototype",
+  "repository": "https://bitbucket.org/spectrakey/blogger-prototype",
   "license": "Proprietary",
-  "author": "SpectraKey <firstmate@spectrakey.co.uk>",
+  "author": "SpectraKey <blogger@spectrakey.co.uk>",
   "main": "app/app.js",
   "dependencies": {
     "bower": "~1.4.1",

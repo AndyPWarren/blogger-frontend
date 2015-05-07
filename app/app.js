@@ -1,13 +1,13 @@
 "use strict";
 /**
- * @module   fmPrototype
- * @main     fmPrototype
+ * @module   blPrototype
+ * @main     blPrototype
  * @author   SpectraKey
  */
-angular.module("fmPrototype", [
-    "fmPrototype.api",
-    "fmPrototype.header",
-    "fmPrototype.nav",
+angular.module("blPrototype", [
+    "blPrototype.api",
+    "blPrototype.header",
+    "blPrototype.nav",
     "ngRoute"
 ])
 /**

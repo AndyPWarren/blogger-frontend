@@ -1,19 +1,19 @@
 "use strict";
 /*
- * @module   fmPrototype.nav.navbar
+ * @module   blPrototype.nav.navbar
  * @author   SpectraKey
  */
-angular.module("fmPrototype.nav.navbar", [
+angular.module("blPrototype.nav.navbar", [
 
 ])
 
 /**
  * @example
- *  <fm-navbar></fm-navbar>
+ *  <bl-navbar></bl-navbar>
  * @constructor
- * @class fmNavbar
+ * @class blNavbar
  */
-.directive("fmNavbar", [
+.directive("blNavbar", [
     function (){
         return {
             restrict: "E",
@@ -22,7 +22,7 @@ angular.module("fmPrototype.nav.navbar", [
                 menuId: "@"
             },
             replace: true,
-            templateUrl: "components/fm-nav/navbar/navbar.html",
+            templateUrl: "components/bl-nav/navbar/navbar.html",
             controller: [
                 "$scope",
                 "$location",

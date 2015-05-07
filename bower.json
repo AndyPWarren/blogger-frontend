@@ -1,8 +1,8 @@
 {
-  "name": "firstmate-prototype",
-  "description": "FirstMate Frontend Prototype",
+  "name": "blogger-prototype",
+  "description": "Blogger Frontend Prototype",
   "version": "0.0.0",
-  "homepage": "https://bitbucket.org/spectrakey/firstmate-prototype",
+  "homepage": "https://bitbucket.org/spectrakey/blogger-prototype",
   "license": "MIT",
   "private": true,
   "dependencies": {

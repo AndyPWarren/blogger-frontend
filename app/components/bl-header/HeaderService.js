@@ -1,24 +1,24 @@
 "use strict";
 /*
  * Dynamic heading
- * @module   fmPrototype.header.HeaderService
+ * @module   blPrototype.header.HeaderService
  * @author   SpectraKey
  */
-angular.module("fmPrototype.header.HeaderService", [
+angular.module("blPrototype.header.HeaderService", [
 
 ])
 /**
- * Setter for fmHeader directive
- * @class fmHeaderService
+ * Setter for blHeader directive
+ * @class blHeaderService
  * @constructor
  * @example
- *  fmHeaderService.set({
+ *  blHeaderService.set({
  *      "heading": "",
  *      "tagline": "",
  *      "hero": ""
  *  })
  */
-.service("fmHeaderService", [
+.service("blHeaderService", [
     "$rootScope",
     function($rootScope) {
         return {
@@ -27,7 +27,7 @@ angular.module("fmPrototype.header.HeaderService", [
              * @param {Object} values  header contents
              */
             set: function set(values){
-                $rootScope.$broadcast("fmHeader", values);
+                $rootScope.$broadcast("blHeader", values);
             }
         };
     }

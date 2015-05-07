@@ -1,19 +1,19 @@
 "use strict";
 /*
- * @module   fmPrototype.header
+ * @module   blPrototype.header
  * @author   SpectraKey
  */
-angular.module("fmPrototype.header", [
-    "fmPrototype.header.HeaderService"
+angular.module("blPrototype.header", [
+    "blPrototype.header.HeaderService"
 ])
 
 /**
  * @example
-    <fm-header></fm-header>
+    <bl-header></bl-header>
  * @constructor
- * @class fmHeader
+ * @class blHeader
  */
-.directive("fmHeader", [
+.directive("blHeader", [
     function (){
         return {
             restrict: "E",
@@ -21,7 +21,7 @@ angular.module("fmPrototype.header", [
                 user: "="
             },
             replace: true,
-            templateUrl: "components/fm-header/header.html",
+            templateUrl: "components/bl-header/header.html",
             link: function(scope){
                 /**
                  * @method setHeader
@@ -34,7 +34,7 @@ angular.module("fmPrototype.header", [
                     scope.hero = values.hero;
                 };
 
-                scope.$on("fmHeader", setHeader);
+                scope.$on("blHeader", setHeader);
             }
         };
     }

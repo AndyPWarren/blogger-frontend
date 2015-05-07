@@ -2,14 +2,14 @@
 <!-- build:[ng-app]:e2e fmPrototype.e2e -->
 <!--[if lt IE 8]>      <html lang="en" ng-app="fmPrototype" ng-strict-di class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="fmPrototype" ng-strict-di class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="fmPrototype" ng-strict-di class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="blPrototype" ng-strict-di class="no-js"> <!--<![endif]-->
 <!-- /build -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="fragment" content="!">
-    <title>FirstMate Prototype</title>
+    <title>Blogger Prototype</title>
 
     <!-- build:template
     <base href="<%= url %>">
@@ -43,7 +43,7 @@
 </head>
 <body>
 
-    <fm-header data-user="current" data-group="current.group"></fm-header>
+    <bl-header data-user="current" data-group="current.group"></bl-header>
 
     <ng-view></ng-view>
 
@@ -65,14 +65,14 @@
     <script src="./bower_components/angular-route/angular-route.js"></script>
     <script src="./bower_components/angular-resource/angular-resource.js"></script>
     <script src="./app.js"></script>
-    <script src="./components/fm-api/api.js"></script>
-    <script src="./components/fm-api/factories/GroupsResource.js"></script>
-    <script src="./components/fm-api/factories/IssuesResource.js"></script>
-    <script src="./components/fm-api/factories/UsersResource.js"></script>
-    <script src="./components/fm-header/header.js"></script>
-    <script src="./components/fm-header/HeaderService.js"></script>
-    <script src="./components/fm-nav/nav.js"></script>
-    <script src="./components/fm-nav/navbar/navbar.js"></script>
+    <script src="./components/bl-api/api.js"></script>
+    <script src="./components/bl-api/factories/GroupsResource.js"></script>
+    <script src="./components/bl-api/factories/IssuesResource.js"></script>
+    <script src="./components/bl-api/factories/UsersResource.js"></script>
+    <script src="./components/bl-header/header.js"></script>
+    <script src="./components/bl-header/HeaderService.js"></script>
+    <script src="./components/bl-nav/nav.js"></script>
+    <script src="./components/bl-nav/navbar/navbar.js"></script>
     <!-- /build -->
     <!-- build:remove -->
     <script src="./config/config.js"></script>

@@ -1,10 +1,10 @@
 "use strict";
 /*
- * @module   fmPrototype.nav
+ * @module   blPrototype.nav
  * @author   SpectraKey
  */
-angular.module("fmPrototype.nav", [
-    "fmPrototype.nav.navbar"
+angular.module("blPrototype.nav", [
+    "blPrototype.nav.navbar"
 ])
 
 /**
@@ -19,4 +19,5 @@ angular.module("fmPrototype.nav", [
  *      }]
  *  }
  */
+
 .constant("nav", {});

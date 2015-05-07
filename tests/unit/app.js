@@ -1,11 +1,11 @@
 "use strict";
 
-describe("fmPrototype", function (){
+describe("blPrototype", function (){
 
     var $location, $route, $rootScope;
 
     beforeEach(function(){
-        module("fmPrototype");
+        module("blPrototype");
     });
 
     beforeEach(inject(function ( _$location_, _$route_, _$rootScope_) {

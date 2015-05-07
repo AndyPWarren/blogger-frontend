@@ -2,10 +2,10 @@
 /**
  * Factory which provides mock data for users resource
  * @class    UsersResource
- * @module   fmPrototype.api.users
+ * @module   blPrototype.api.users
  * @author   SpectraKey
  */
-angular.module("fmPrototype.api.users", [
+angular.module("blPrototype.api.users", [
     "ngResource"
 ])
 
@@ -17,13 +17,13 @@ angular.module("fmPrototype.api.users", [
      */
     function ($resource) {
 
-        return $resource("components/fm-api/data/users.json",
+        return $resource("components/bl-api/data/users.json",
             {},
             // Hash with declaration of custom action that should
             // extend the default set of resource actions
             {
                 current: {
-                    url: "components/fm-api/data/user.json"
+                    url: "components/bl-api/data/user.json"
                 }
             }
         );

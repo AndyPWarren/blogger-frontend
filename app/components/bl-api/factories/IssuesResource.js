@@ -1,15 +1,15 @@
 "use strict";
 /**
- * Factory which provides mock data for groups resource
- * @class    GroupsResource
- * @module   fmPrototype.api.groups
+ * Factory which provides mock data for issues resource
+ * @class    IssuesResource
+ * @module   blPrototype.api.issues
  * @author   SpectraKey
  */
-angular.module("fmPrototype.api.groups", [
+angular.module("blPrototype.api.issues", [
     "ngResource"
 ])
 
-.factory("GroupsResource", [
+.factory("IssuesResource", [
     "$resource",
     /**
      * @constructor
@@ -17,13 +17,13 @@ angular.module("fmPrototype.api.groups", [
      */
     function ($resource) {
 
-        return $resource("components/fm-api/data/groups.json",
+        return $resource("components/bl-api/data/issues.json",
             {},
             // Hash with declaration of custom action that should
             // extend the default set of resource actions
             {
                 get: {
-                    url: "components/fm-api/data/group.json"
+                    url: "components/bl-api/data/issue.json"
                 }
             }
         );
