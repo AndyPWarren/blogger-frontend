@@ -4,7 +4,7 @@
  * @author   SpectraKey
  */
 angular.module("blPrototype.api", [
-//    "blPrototype.api.posts",
+    "blPrototype.api.posts",
     "blPrototype.api.users",
     "blPrototype.api.sites"
 ]);
