@@ -88,7 +88,11 @@ module.exports = function (grunt) {
                     "./tests/unit/**/*.js",
                     "./tests/unit/**/**/*.js",
 
-                    "scripts.json"
+                    "scripts.json",
+
+                    "./app/*.html",
+                    "./app/**/*.html",
+                    "./app/**/**/*.html"
                 ],
                 tasks: ["sails-linker", "test:development"]
             }
