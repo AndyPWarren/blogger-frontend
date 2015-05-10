@@ -8,6 +8,7 @@ angular.module("blPrototype", [
     "blPrototype.api",
     "blPrototype.header",
     "blPrototype.nav",
+    "blPrototype.posts",
     "ngRoute"
 ])
 /**
@@ -19,4 +20,5 @@ angular.module("blPrototype", [
     function ($locationProvider) {
         $locationProvider.html5Mode(true).hashPrefix = "!";
     }
+
 ]);
