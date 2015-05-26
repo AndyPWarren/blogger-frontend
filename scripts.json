@@ -2,18 +2,23 @@
     "vendor": [
         "./app/bower_components/angular/angular.js",
         "./app/bower_components/angular-route/angular-route.js",
+        "./app/bower_components/angular-ui-router/release/angular-ui-router.js",
         "./app/bower_components/angular-resource/angular-resource.js"
     ],
     "application": [
         "./app/app.js",
+        "./app/components/bl-api/PostsResource.js",
+        "./app/components/bl-api/SitesResource.js",
+        "./app/components/bl-api/UsersResource.js",
         "./app/components/bl-api/api.js",
-        "./app/components/bl-api/factories/SitesResource.js",
-        "./app/components/bl-api/factories/PostsResource.js",
-        "./app/components/bl-api/factories/UsersResource.js",
         "./app/components/bl-header/header.js",
         "./app/components/bl-header/HeaderService.js",
         "./app/components/bl-nav/nav.js",
         "./app/components/bl-nav/navbar/navbar.js",
-        "./app/components/bl-posts/posts.js"
+        "./app/components/bl-posts/posts.js",
+        "./app/components/bl-admin/admin.js",
+        "./app/components/bl-admin/login/login.js",
+        "./app/components/bl-admin/register/register.js"
+
     ]
 }
