@@ -1,0 +1,30 @@
+
+<!--LOGIN FORM-->
+<form name="loginForm" class="form-group" ng-submit="submitLoginForm()" >
+
+    <!--EMAIL-->
+    <div class="col-md-12">
+        <label class="col-md-3">Email</label>
+        <div class="col-md-4 form-group">
+            <input type="text" name="email" class="form-control"  placeholder="someone" ng-model="login.email" ng-click="clearUserError()" ng-keydown="loseFocus($event)" ng-required="true">
+            <span class="error-message" ng-show="loginForm.email.$dirty && loginForm.email.$error.required">Email is required</span>
+<!--            <span class="error-message" ng-show="loginForm.email.$error.email">Not valid email!</span>-->
+            <span class="error-message" ng-show="userError">{{userError}}</span>
+        </div>
+        <span class="col-md-5">@{{host}}</span>
+    </div>
+
+    <!-- PASSWOORD -->
+    <div class="col-md-12">
+        <label class="col-md-3">Password</label>
+        <div class="col-md-4 form-group">
+            <input type="password" name="password" class="form-control" placeholder="******" ng-model="login.password" ng-required="true">
+            <span class="error-message" ng-show="loginForm.password.$dirty && loginForm.password.$error.required">Password is required</span>
+        </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="col-md-9 col-md-offset-3 form-group">
+        <button type="submit" class="btn btn-default" ng-disabled="loginForm.$invalid">Login</button>
+    </div>
+</form>
