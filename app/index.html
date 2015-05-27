@@ -41,11 +41,11 @@
     <meta name="theme-color" content="#ffffff">
 
 </head>
-<body>
+<body ng-controller="AppCtrl" ng-init="getHost()">
 
     <bl-header data-user="current" data-group="current.group"></bl-header>
 
-    <ng-view></ng-view>
+    <div class="content" ui-view></div>
 
     <!--[if lt IE 8]>
         <p>Your browser is <strong>ancient</strong> and will not work with this site. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -63,17 +63,25 @@
     <!-- build:js js/app.min.js -->
     <script src="./bower_components/angular/angular.js"></script>
     <script src="./bower_components/angular-route/angular-route.js"></script>
+    <script src="./bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="./bower_components/angular-resource/angular-resource.js"></script>
     <script src="./app.js"></script>
+    <script src="./components/bl-mock-api/mock-api.js"></script>
+    <script src="./components/bl-mock-api/factories/SitesResource.js"></script>
+    <script src="./components/bl-mock-api/factories/PostsResource.js"></script>
+    <script src="./components/bl-mock-api/factories/UsersResource.js"></script>
+    <script src="./components/bl-api/PostsResource.js"></script>
+    <script src="./components/bl-api/SitesResource.js"></script>
+    <script src="./components/bl-api/UsersResource.js"></script>
     <script src="./components/bl-api/api.js"></script>
-    <script src="./components/bl-api/factories/SitesResource.js"></script>
-    <script src="./components/bl-api/factories/PostsResource.js"></script>
-    <script src="./components/bl-api/factories/UsersResource.js"></script>
     <script src="./components/bl-header/header.js"></script>
     <script src="./components/bl-header/HeaderService.js"></script>
     <script src="./components/bl-nav/nav.js"></script>
     <script src="./components/bl-nav/navbar/navbar.js"></script>
     <script src="./components/bl-posts/posts.js"></script>
+    <script src="./components/bl-admin/admin.js"></script>
+    <script src="./components/bl-admin/login/login.js"></script>
+    <script src="./components/bl-admin/register/register.js"></script>
     <!-- /build -->
     <!-- build:remove -->
     <script src="./config/config.js"></script>
