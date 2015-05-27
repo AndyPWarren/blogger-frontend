@@ -1,11 +1,31 @@
 <!--REGISTRATION FORM-->
-<form name="RegistrationForm" class="form-group" ng-submit="submitRegisterForm()">
+<form name="registerForm" class="form-group" ng-submit="registerUser()">
+
+    <!--First Name-->
+    <div class="col-md-12">
+        <label class="col-md-3">first name</label>
+        <div class="col-md-4 form-group">
+            <input type="text" name="firstname" class="form-control"  placeholder="John" ng-model="register.firstname" ng-click="clearUserError()" ng-required="true">
+            <span class="error-message" ng-show="registerForm.firstname.$dirty && registerForm.firstname.$error.required">first name is required</span>
+            <span class="error-message" ng-show="userError">{{userError}}</span>
+        </div>
+    </div>
+
+    <!--Last Name-->
+    <div class="col-md-12">
+        <label class="col-md-3">last name</label>
+        <div class="col-md-4 form-group">
+            <input type="text" name="lastname" class="form-control"  placeholder="John" ng-model="register.lastname" ng-click="clearUserError()" ng-required="true">
+            <span class="error-message" ng-show="registerForm.lastname.$dirty && registerForm.lastname.$error.required">last name is required</span>
+            <span class="error-message" ng-show="userError">{{userError}}</span>
+        </div>
+    </div>
 
     <!--EMAIL-->
     <div class="col-md-12">
         <label class="col-md-3">Email</label>
         <div class="col-md-4 form-group">
-            <input type="text" name="email" class="form-control"  placeholder="someone" ng-model="register.email" ng-click="clearUserError()" ng-keydown="loseFocus($event)" ng-required="true">
+            <input type="text" name="email" class="form-control"  placeholder="someone" ng-model="register.email" ng-click="clearUserError()" ng-required="true">
             <span class="error-message" ng-show="registerForm.email.$dirty && registerForm.email.$error.required">Email is required</span>
             <span class="error-message" ng-show="userError">{{userError}}</span>
         </div>
@@ -25,13 +45,24 @@
     <div class="col-md-12">
         <label class="col-md-3">Confirm Password</label>
         <div class="col-md-4 form-group">
-            <input type="password" name="password" class="form-control" placeholder="******" ng-model="register.password" ng-required="true">
+            <input type="password" name="password_confirm" class="form-control" placeholder="******" ng-model="register.password_confirm" sn-input-confirm="register.password" ng-required="true">
+            <span class="error-message" ng-show="registerForm.password_confirm.$error.inputConfirm">Password doesnt match</span>
             <span class="error-message" ng-show="registerForm.password.$dirty && registerForm.password.$error.required">Password is required</span>
         </div>
     </div>
 
     <!-- SUBMIT -->
     <div class="col-md-9 col-md-offset-3 form-group">
-        <button type="submit" class="btn btn-default" ng-disabled="registerForm.$invalid">Login</button>
+        <button type="submit" class="btn btn-default" ng-disabled="registerForm.$invalid">Register</button>
     </div>
+
 </form>
+
+<div class="col-md-9 col-md-offset-3">
+    <button class="btn btn-default" ng-click="registerButton()">Register</button>
+</div>
+<div class="col-md-9 col-md-offset-3">
+    <button class="btn btn-default" ng-click="loginButton()">Login</button>
+</div>
+
+

@@ -6,9 +6,10 @@
 angular.module("blPrototype.admin", [
     "blPrototype.admin.login",
     "blPrototype.admin.register",
+    "blPrototype.admin.register",
+    "sn.inputConfirm",
     "ngRoute",
     "ui.router"
-
 ])
 
 .config(["$stateProvider", function($stateProvider) {
@@ -29,6 +30,7 @@ angular.module("blPrototype.admin", [
                 controller: "blRegisterCtrl"
             });
     }
+
 ])
 
 .controller("blAdminCtrl", [
@@ -41,12 +43,9 @@ angular.module("blPrototype.admin", [
 
         $scope.site = {};
 
-        $scope.host = $location.host();
-
         $scope.siteSuccess = function siteSuccess(res){
             $scope.site.status = "site " + $scope.host + " has been authorized";
             //check users in site
-            console.log(site);
             if (res.data.site.users.length === 0) {
                 //false -> register
                 $state.go("admin.register");
