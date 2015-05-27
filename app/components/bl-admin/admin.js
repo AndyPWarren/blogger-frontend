@@ -8,6 +8,7 @@ angular.module("blPrototype.admin", [
     "blPrototype.admin.register",
     "blPrototype.admin.register",
     "sn.inputConfirm",
+    "bl.changeFocus",
     "ngRoute",
     "ui.router"
 ])

@@ -18,6 +18,7 @@
         "./app/components/bl-posts/posts.js",
         "./app/components/bl-admin/admin.js",
         "./app/components/bl-admin/compareTo.js",
+        "./app/components/bl-admin/changeFocus.js",
         "./app/components/bl-admin/login/login.js",
         "./app/components/bl-admin/register/register.js"
 
