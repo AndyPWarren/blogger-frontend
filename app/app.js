@@ -5,7 +5,6 @@
  * @author   SpectraKey
  */
 angular.module("blPrototype", [
-    "blPrototype.mockapi",
     "blPrototype.api",
     "blPrototype.header",
     "blPrototype.nav",
@@ -29,7 +28,16 @@ angular.module("blPrototype", [
 
 .controller("AppCtrl", ["$scope", "$location", function($scope, $location){
     $scope.getHost = function getHost(){
-        $scope.host = $location.host();
+        console.log($location.host());
+        if ($location.host() === "localhost") {
+            //append '.com'
+            $scope.host = $location.host() + ".com";
+        } else {
+            $scope.host = $location.host();
+        }
+
+        $scope.emailDomain = "@" + $scope.host;
+
     };
 
 }]);
