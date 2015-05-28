@@ -1,5 +1,5 @@
 <!--REGISTRATION FORM-->
-<form name="registerForm"  class="col-md-12" ng-submit="registerUser()" bl-change-focus="host" >
+<form name="registerForm"  class="col-md-12" ng-submit="registerUser()" bl-change-focus="input, move-focus-to, password">
 
     <!--First Name-->
     <div class="col-md-12 form-inline">
@@ -22,10 +22,10 @@
     </div>
 
     <!--EMAIL-->
-    <div class="col-md-12 form-inline" >
+    <div class="col-md-12 form-inline">
         <label class="col-md-3">Email</label>
-        <input type="text" name="email" class="col-md-4 form-control" bl-change-focus="host" placeholder="someone" ng-model="register.email" ng-click="clearUserError()" ng-required="true">
-        <input type="text" class="col-md-4 form-control" ng-readonly=true ng-model="emailDomain">
+        <input id="input" type="text" name="email" class="col-md-4 form-control" placeholder="someone" ng-model="register.email" ng-click="clearUserError()" ng-required="true">
+        <input id="move-focus-to" type="text" class="col-md-4 form-control" ng-readonly=true ng-model="emailDomain">
 
     </div>
     <div class="col-md-12 form-inline form-error">
