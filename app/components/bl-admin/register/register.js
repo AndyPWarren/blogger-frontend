@@ -15,12 +15,14 @@ angular.module("blPrototype.admin.register", [
 
     function($scope, $location, UsersResource, SitesResource){
 
+        $scope.emailDomain = "@" + $scope.host;
+
         $scope.registerUser = function registerUser(){
 
             var user = {
                 firstName: $scope.register.firstname,
                 lastName: $scope.register.lastname,
-                email: $scope.register.email + "@" + $scope.host,
+                email: $scope.register.email + $scope.emailDomain,
                 password: $scope.register.password
             };
 
