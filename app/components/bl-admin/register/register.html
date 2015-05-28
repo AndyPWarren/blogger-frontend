@@ -1,20 +1,18 @@
 <!--REGISTRATION FORM-->
-<form name="registerForm"  class="col-md-12" ng-submit="registerUser()" bl-change-focus="input, move-focus-to, password">
-
+<form name="registerForm"  class="col-md-12" ng-submit="registerUser()">
     <!--First Name-->
     <div class="col-md-12 form-inline">
         <label class="col-md-3">first name</label>
-        <input type="text" name="firstname" class="col-md-4 form-control" placeholder="John" ng-model="register.firstname" ng-click="clearUserError()" ng-required="true">
+        <input id="first-name" type="text" name="firstname" class="col-md-4 form-control" placeholder="John" ng-model="register.firstname" ng-click="clearUserError()" ng-required="true">
     </div>
     <div class="col-md-12 form-inline form-error">
         <span class="col-md-4 col-md-offset-3 error-message" ng-show="registerForm.firstname.$dirty && registerForm.firstname.$error.required">first name is required</span>
         <span class="col-md-4 col-md-offset-3 error-message" ng-show="userError">{{userError}}</span>
     </div>
-
     <!--Last Name-->
     <div class="col-md-12 form-inline">
         <label class="col-md-3">last name</label>
-        <input type="text" name="lastname" class="col-md-4 form-control" placeholder="John" ng-model="register.lastname" ng-click="clearUserError()" ng-required="true">
+        <input id="last-name" type="text" name="lastname" class="col-md-4 form-control" placeholder="John" ng-model="register.lastname" ng-click="clearUserError()" ng-required="true">
     </div>
     <div class="col-md-12 form-inline form-error">
         <span class="col-md-4 col-md-offset-3 error-message" ng-show="registerForm.lastname.$dirty && registerForm.lastname.$error.required">last name is required</span>
@@ -25,7 +23,7 @@
     <div class="col-md-12 form-inline">
         <label class="col-md-3">Email</label>
         <input id="input" type="text" name="email" class="col-md-4 form-control" placeholder="someone" ng-model="register.email" ng-click="clearUserError()" ng-required="true">
-        <input id="move-focus-to" type="text" class="col-md-4 form-control" ng-readonly=true ng-model="emailDomain">
+        <input id="move-focus-to" type="text" class="col-md-4 form-control" ng-readonly=true ng-disabled=true ng-model="emailDomain">
 
     </div>
     <div class="col-md-12 form-inline form-error">
@@ -56,17 +54,8 @@
     <div class="col-md-12 form-inline">
         <button type="submit" class="col-md-offset-3 btn btn-default" ng-disabled="registerForm.$invalid">Register</button>
     </div>
-
-
-
 </form>
 
-<div class="col-md-9 col-md-offset-3">
-    <button class="btn btn-default" ng-click="registerButton()">Register</button>
-</div>
-<div class="col-md-9 col-md-offset-3">
-    <button class="btn btn-default" ng-click="loginButton()">Login</button>
-</div>
 
 
 
