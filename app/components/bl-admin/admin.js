@@ -10,7 +10,9 @@ angular.module("blPrototype.admin", [
     "sn.inputConfirm",
     "bl.changeFocus",
     "ngRoute",
-    "ui.router"
+    "ui.router",
+    "ngMessages",
+    "bl.changeFocus"
 ])
 
 .config(["$stateProvider", function($stateProvider) {
@@ -33,6 +35,10 @@ angular.module("blPrototype.admin", [
     }
 
 ])
+
+.config(["blChangeFocusConfigProvider", function(blChangeFocusConfigProvider){
+    blChangeFocusConfigProvider.setCssClass('flash-user');
+}])
 
 .controller("blAdminCtrl", [
     "$scope",

@@ -2,49 +2,127 @@
 /*
  * @module   bl.changeFocus
  */
-angular.module("bl.changeFocus", [
+angular.module("bl.changeFocus", [])
 
-])
+.provider('blChangeFocusConfig', function () {
+
+    /**
+     * set cssClass
+     * @param {String} cssClass
+     */
+    this.setCssClass = function (cssClass) {
+        this.cssClass = cssClass;
+    };
+
+    this.$get = function () {
+        return this;
+    };
+})
 /**
  * @constructor
- * @example sets up a relationship between three elements using the id selector
- * First element will detect the keypress (@) and move focus to the second element focus will then move onto the third element
- * Works best with one input and a second readonly input
- * bl-change-focus="{first-element}, {second-element}"
+ * @description change focus from one element to another based on a keypress in first element
+ * can also have a third element for alertion purposes
+ * @example two element focus change
+ * bl-change-focus="{first-element}, {second-element}, ({key to detect})"
  * <input id="{first-element}">
- * <input id="{second-element}" ng-readonly=true>
- * <input id="{third-element}">
+ * <input id="{second-element}">
+ * @example three element focus change
+ * focus moves from 1-3 and 2 is used to flash the user with a CSS class defined in config
+ * bl-change-focus="{first-element}, {second-element}, {third-element}, ({key-to-detect})"
+ * <input id="{first-element}">
+ * <input id="{second-element}">
  * @class blChangeFocus
  */
 .directive("blChangeFocus",[
     '$interval',
-    function ($interval){
+    'blChangeFocusConfig',
+    function ($interval, blChangeFocusConfig){
         return {
             restrict: "A",
-            link: function($scope, $element, attrs ){
+            link: function($scope, $element, attrs){
 
-                var inputIdsArr = attrs.blChangeFocus.split(', '),
-                    inputId = "#" + inputIdsArr[0],
-                    focusToId = "#" + inputIdsArr[1],
-                    passwordId = "#" + inputIdsArr[2];
+                /*
+                 * take arguments supplied in directive call and split by ,
+                 * @property argsArr
+                 */
+                var argsArr = attrs.blChangeFocus.split(', ');
+                /*
+                 * first, second and third element id's from supplied arguments
+                 * @property firstId
+                 * @property secondId
+                 * @property thirdId
+                 */
+                var firstId = "#" + argsArr[0],
+                    secondId = "#" + argsArr[1],
+                    thirdId = "#" + argsArr[2];
+                /*
+                 * the character which the user wants to detect
+                 * taken from supplied arguments
+                 * @property char
+                 */
+                var char = argsArr.pop();
+                /*
+                 * the css class for flashing an element
+                 * defined in ConfigProvider
+                 * @property cssClass
+                 */
+                var cssClass = blChangeFocusConfig.cssClass;
+                /*
+                 * regular expression to catch content in parentheses ()
+                 * @property regExp
+                 */
+                var regExp = /\(([^)]+)\)/;
+                /*
+                 * perform regexp on char
+                 * @property matches
+                 */
+                var matches = regExp.exec(char);
+                /*
+                 * get char code from the match
+                 * @property keyCode
+                 */
+                var keyCode = matches[1].charCodeAt();
 
-                var inputElement = $element.find(inputId);
-                var focusToElement = $element.find(focusToId);
-                var passwordElement = $element.find(passwordId);
+                //Deduce logic based on 2 or 3 user arguments
+                if (argsArr.length === 2) {
+                    //if 2 element id's have been provided
+                    //move focus to second element no css change
+                    var firstElement = $element.find(firstId);
+                    var secondElement = $element.find(secondId);
 
-                inputElement.on('keydown', function(event){
-                    if (event.keyCode === 192 && event.shiftKey === true) {
+                    firstElement.on('keypress', function(event){
+                        if (event.keyCode === keyCode) {
 
-                        focusToElement.focus();
-                        focusToElement.css({color:'green'});
+                            firstElement.blur();
 
-                        var moveToPassword = $interval(function(){
-                            focusToElement.css({color:'black'});
-                            passwordElement.focus();
-                            $interval.cancel(moveToPassword);
-                        }, 2000);
-                    }
-                });
+                            var focusChange = $interval(function(){
+                                secondElement.focus();
+                                $interval.cancel(focusChange);
+                            }, 100);
+                        }
+                    });
+                } else if (argsArr.length === 3) {
+                    //if 3 element id's have been provided
+                    //move focus to second element and add css class
+                    //then after 2s remove css class and move focus to third element
+                    var firstElement = $element.find(firstId);
+                    var secondElement = $element.find(secondId);
+                    var thirdElement = $element.find(thirdId);
+                    firstElement.on('keypress', function(event){
+                        if (event.keyCode === keyCode) {
+
+                            firstElement.blur();
+                            secondElement.addClass(cssClass);
+
+                            var focusChange = $interval(function(){
+                                secondElement.removeClass(cssClass);
+                                thirdElement.focus();
+                                $interval.cancel(focusChange);
+                            }, 2000);
+                        }
+                    });
+                }
+
             }
         };
     }
