@@ -1,22 +1,24 @@
 <!--REGISTRATION FORM-->
 <form name="registerForm"  class="col-md-12" ng-submit="registerUser()" bl-change-focus="input, move-focus-to, password, (@)">
     <!--First Name-->
-    <div bl-change-focus="first-name, second-name, ( )">
+    <div bl-change-focus="first-name, last-name, ( )">
+        <div>
+            <div class="col-md-12 form-inline">
+                <label class="col-md-3">first name</label>
+                <input id="first-name" type="text" name="firstname" class="col-md-4 form-control" placeholder="John" ng-model="register.firstname" ng-click="clearUserError()" ng-required="true">
+            </div>
+            <div class="col-md-12 form-inline form-error" ng-messages="registerForm.firstname.$dirty && registerForm.firstname.$error" role="alert">
+                <span class="col-md-4 col-md-offset-3 error-message" ng-message="required">first name is required</span>
+            </div>
+        </div>
+        <!--Last Name-->
         <div class="col-md-12 form-inline">
-            <label class="col-md-3">first name</label>
-            <input id="first-name" type="text" name="firstname" class="col-md-4 form-control" placeholder="John" ng-model="register.firstname" ng-click="clearUserError()" ng-required="true">
+            <label class="col-md-3">last name</label>
+            <input id="last-name" type="text" name="lastname" class="col-md-4 form-control" placeholder="John" ng-model="register.lastname" ng-click="clearUserError()" ng-required="true">
         </div>
-        <div class="col-md-12 form-inline form-error" ng-messages="registerForm.firstname.$dirty && registerForm.firstname.$error" role="alert">
-            <span class="col-md-4 col-md-offset-3 error-message" ng-message="required">first name is required</span>
+        <div class="col-md-12 form-inline form-error" ng-messages="registerForm.lastname.$dirty && registerForm.lastname.$error" role="alert">
+            <span class="col-md-4 col-md-offset-3 error-message" ng-message="required">last name is required</span>
         </div>
-    </div>
-    <!--Last Name-->
-    <div class="col-md-12 form-inline">
-        <label class="col-md-3">last name</label>
-        <input id="last-name" type="text" name="lastname" class="col-md-4 form-control" placeholder="John" ng-model="register.lastname" ng-click="clearUserError()" ng-required="true">
-    </div>
-    <div class="col-md-12 form-inline form-error" ng-messages="registerForm.lastname.$dirty && registerForm.lastname.$error" role="alert">
-        <span class="col-md-4 col-md-offset-3 error-message" ng-message="required">last name is required</span>
     </div>
 
     <!--EMAIL-->
@@ -60,36 +62,3 @@
 <div class="col-md-12 form-inline">
     <button type="submit" class="col-md-offset-3 btn btn-default" ng-click="registerButton()">Register</button>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
