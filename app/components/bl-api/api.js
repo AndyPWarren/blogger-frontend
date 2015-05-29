@@ -7,5 +7,6 @@ angular.module("blPrototype.api", [
     "blPrototype.api.posts",
     "blPrototype.api.users",
     "blPrototype.api.sites",
-    "blPrototype.api.host"
+    "blPrototype.api.host",
+    "blPrototype.api.sitefactory"
 ]);

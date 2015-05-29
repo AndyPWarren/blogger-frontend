@@ -47,49 +47,25 @@ angular.module("blPrototype.admin", [
     "UsersResource",
     "SitesResource",
     "HostFactory",
-    function($scope, $state, $location, UsersResource, SitesResource, HostFactory){
+    "SiteFactory",
+    function($scope, $state, $location, UsersResource, SitesResource, HostFactory, Site){
 
-        $scope.site = {};
+        console.log(Site);
+        Site.get().then(function(site){
+           if (!site.authorized) {
+               $scope.status ="site is awaiting authorization"
+               return $state.go("admin.register");
+           }
 
-        $scope.siteSuccess = function siteSuccess(res){
-            $scope.site.status = "site " + HostFactory.domain + " has been authorized";
-            //check users in site
-            if (res.data.site.users.length === 0) {
-                //false -> register
-                $state.go("admin.register");
+           if (site.site.user.length === 0) {
+               //no users prompt registration
+               $state.go("admin.register");
+           } else {
+               //users exist so login
+               $state.go("admin.login");
+           }
 
-            } else {
-                //true -> login
-                $state.go("admin.login");
-            }
-
-
-        };
-
-        $scope.siteError = function siteError(err){
-            console.log(err);
-            if (err.status === 404) {
-                $scope.site.status = "creating site " + HostFactory.domain;
-                //site doesn't exist
-                //create the site
-                site.domain = HostFactory.domain;
-                site.$save(function(res){
-                    $scope.site.status = "site " + HostFactory.domain + " has been created successfully and is awaiting authorization";
-
-                    console.log("site has been saved");
-                }, function(err){
-                    console.log("error");
-                });
-            }
-
-            if (err.status === 403) {
-                $scope.site.status = "site " + HostFactory.domain + " is awaiting authorization";
-                //site hasn't been authorized yet
-            }
-        };
-
-        var site = SitesResource.get({domain:HostFactory.domain}, $scope.siteSuccess, $scope.siteError);
-
+        });
     }
 ]);
 

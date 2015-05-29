@@ -14,7 +14,13 @@ angular.module("blPrototype.api.sites", ["ngResource"]).factory("SitesResource",
     function($resource, env) {
 
         return $resource(
-            env.API_ADDRESS + "sites/:domain"
+            env.API_ADDRESS + "sites/:domain", {},
+            {
+                create: {
+                    method: "POST",
+                    url: env.API_ADDRESS + "sites"
+                }
+            }
         );
     }
 ]);
