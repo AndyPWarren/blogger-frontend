@@ -14,6 +14,7 @@
         "./app/components/bl-api/UsersResource.js",
         "./app/components/bl-api/hostFactory.js",
         "./app/components/bl-api/SiteFactory.js",
+        "./app/components/bl-api/UserFactory.js",
         "./app/components/bl-api/api.js",
         "./app/components/bl-header/header.js",
         "./app/components/bl-header/HeaderService.js",
