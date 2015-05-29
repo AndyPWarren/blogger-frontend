@@ -10,11 +10,12 @@ angular.module("blPrototype.admin.register", [
 .controller("blRegisterCtrl", [
     "$scope",
     "$location",
-    "UsersResource",
-    "SitesResource",
+    "$interval",
+    "$state",
     "HostFactory",
+    "UserFactory",
 
-    function($scope, $location, UsersResource, SitesResource, HostFactory){
+    function($scope, $location, $interval, $state, HostFactory, UserFactory){
 
         $scope.emailDomain = HostFactory.emailDomain;
 
@@ -27,13 +28,29 @@ angular.module("blPrototype.admin.register", [
                 password: $scope.register.password
             };
 
-            SitesResource.get({domain: HostFactory.domain}, function(res){
-                user.site = res.data.site.id;
-                UsersResource.register(user, function(res){
-                    console.log(res);
-                }, function(err){
-                    console.log(err);
-                })
+            UserFactory.register(user).then(function(res){
+                if (res.meta.errors === "This email already exists. So try logging in.") {
+                    //user already exists so log in
+
+                    var loginCredientials = {
+                        identifier: user.email,
+                        password: user.password
+                    };
+
+                    $scope.login = "This user exists so logging in ..."
+
+                    var time = $interval(function(){
+                        UserFactory.login(loginCredientials).then(function(res){
+                            console.log("logged in ");
+                            $state.go('posts');
+                        });
+                        $interval.cancel(time);
+                    }, 2000);
+
+                } else {
+                    //user is created redirect
+                    $state.go('posts');
+                }
             });
 
 
@@ -41,25 +58,36 @@ angular.module("blPrototype.admin.register", [
 
         $scope.registerButton = function(){
             var user = {
-                firstName: "test",
-                lastName: "user",
-                email: "test.user" + "@" + HostFactory.host,
-                password: "password",
-                site: 24
+                firstName: "1",
+                lastName: "2",
+                email: "1.2" + HostFactory.emailDomain,
+                password: "password"
             };
 
-            UsersResource.register({
-                firstName: "test",
-                lastName: "user",
-                email: "test.user@localhost.com",
-                password: "password",
-                site: 25
-            }, function(res){
+            UserFactory.register(user).then(function(res){
+                if (res.meta.errors === "This email already exists. So try logging in.") {
+                    //user already exists so log in
 
-                console.log("posted user");
-                console.log(res);
-            })
+                    var loginCredientials = {
+                        identifier: user.email,
+                        password: user.password
+                    };
 
+                    $scope.login = "This user exists so logging in ..."
+
+                    var time = $interval(function(){
+                        UserFactory.login(loginCredientials).then(function(res){
+                            console.log("logged in ");
+                            $state.go('posts');
+                        });
+                        $interval.cancel(time);
+                    }, 2000);
+
+                } else {
+                    //user is created redirect
+                    $state.go('posts');
+                }
+            });
         }
     }
 ]);
