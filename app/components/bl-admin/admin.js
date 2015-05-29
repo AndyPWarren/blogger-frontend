@@ -46,12 +46,13 @@ angular.module("blPrototype.admin", [
     "$location",
     "UsersResource",
     "SitesResource",
-    function($scope, $state, $location, UsersResource, SitesResource){
+    "HostFactory",
+    function($scope, $state, $location, UsersResource, SitesResource, HostFactory){
 
         $scope.site = {};
 
         $scope.siteSuccess = function siteSuccess(res){
-            $scope.site.status = "site " + $scope.host + " has been authorized";
+            $scope.site.status = "site " + HostFactory.domain + " has been authorized";
             //check users in site
             if (res.data.site.users.length === 0) {
                 //false -> register
@@ -68,12 +69,12 @@ angular.module("blPrototype.admin", [
         $scope.siteError = function siteError(err){
             console.log(err);
             if (err.status === 404) {
-                $scope.site.status = "creating site " + $scope.host;
+                $scope.site.status = "creating site " + HostFactory.domain;
                 //site doesn't exist
                 //create the site
-                site.domain = $scope.host;
+                site.domain = HostFactory.domain;
                 site.$save(function(res){
-                    $scope.site.status = "site " + $scope.host + " has been created successfully and is awaiting authorization";
+                    $scope.site.status = "site " + HostFactory.domain + " has been created successfully and is awaiting authorization";
 
                     console.log("site has been saved");
                 }, function(err){
@@ -82,12 +83,12 @@ angular.module("blPrototype.admin", [
             }
 
             if (err.status === 403) {
-                $scope.site.status = "site " + $scope.host + " is awaiting authorization";
+                $scope.site.status = "site " + HostFactory.domain + " is awaiting authorization";
                 //site hasn't been authorized yet
             }
         };
 
-        var site = SitesResource.get({domain:$scope.host}, $scope.siteSuccess, $scope.siteError);
+        var site = SitesResource.get({domain:HostFactory.domain}, $scope.siteSuccess, $scope.siteError);
 
     }
 ]);

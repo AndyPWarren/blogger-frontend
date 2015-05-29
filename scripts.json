@@ -12,6 +12,7 @@
         "./app/components/bl-api/PostsResource.js",
         "./app/components/bl-api/SitesResource.js",
         "./app/components/bl-api/UsersResource.js",
+        "./app/components/bl-api/hostFactory.js",
         "./app/components/bl-api/api.js",
         "./app/components/bl-header/header.js",
         "./app/components/bl-header/HeaderService.js",
@@ -23,6 +24,5 @@
         "./app/components/bl-admin/changeFocus.js",
         "./app/components/bl-admin/login/login.js",
         "./app/components/bl-admin/register/register.js"
-
     ]
 }

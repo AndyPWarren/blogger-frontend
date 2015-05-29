@@ -7,7 +7,15 @@ angular.module("blPrototype.admin.login", [
 
 ])
 
-.controller("blLoginCtrl", ["$scope", "$location", "UsersResource", "SitesResource",  function($scope, $location, UsersResource, SitesResource){
+.controller("blLoginCtrl", [
+    "$scope",
+    "$location",
+    "UsersResource",
+    "SitesResource",
+    "HostFactory",
+    function($scope, $location, UsersResource, SitesResource, HostFactory){
+
+    $scope.emailDomain = HostFactory.emailDomain;
 
     $scope.resetPasswordError = function resetPasswordError() {
         $scope.loginForm.password.$error.incorrect = false;
@@ -28,7 +36,7 @@ angular.module("blPrototype.admin.login", [
          * @type {Object}
          */
         var credientials = {
-            identifier: $scope.login.email + $scope.emailDomain,
+            identifier: $scope.login.email + HostFactory.emailDomain,
             password: $scope.login.password
         };
 

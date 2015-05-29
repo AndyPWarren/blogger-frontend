@@ -23,21 +23,4 @@ angular.module("blPrototype", [
     function ($locationProvider) {
         $locationProvider.html5Mode(true).hashPrefix = "!";
     }
-
-])
-
-.controller("AppCtrl", ["$scope", "$location", function($scope, $location){
-    $scope.getHost = function getHost(){
-        console.log($location.host());
-        if ($location.host() === "localhost") {
-            //append '.com'
-            $scope.host = $location.host() + ".com";
-        } else {
-            $scope.host = $location.host();
-        }
-
-        $scope.emailDomain = "@" + $scope.host;
-
-    };
-
-}]);
+]);

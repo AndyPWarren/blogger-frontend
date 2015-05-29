@@ -12,19 +12,22 @@ angular.module("blPrototype.admin.register", [
     "$location",
     "UsersResource",
     "SitesResource",
+    "HostFactory",
 
-    function($scope, $location, UsersResource, SitesResource){
+    function($scope, $location, UsersResource, SitesResource, HostFactory){
+
+        $scope.emailDomain = HostFactory.emailDomain;
 
         $scope.registerUser = function registerUser(){
 
             var user = {
                 firstName: $scope.register.firstname,
                 lastName: $scope.register.lastname,
-                email: $scope.register.email + $scope.emailDomain,
+                email: $scope.register.email + HostFactory.emailDomain,
                 password: $scope.register.password
             };
 
-            SitesResource.get({domain: $scope.host}, function(res){
+            SitesResource.get({domain: HostFactory.domain}, function(res){
                 user.site = res.data.site.id;
                 UsersResource.register(user, function(res){
                     console.log(res);
@@ -40,7 +43,7 @@ angular.module("blPrototype.admin.register", [
             var user = {
                 firstName: "test",
                 lastName: "user",
-                email: "test.user" + "@" + $scope.host,
+                email: "test.user" + "@" + HostFactory.host,
                 password: "password",
                 site: 24
             };
