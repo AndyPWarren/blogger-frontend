@@ -9,25 +9,6 @@ angular.module("blPrototype.api.sitefactory", [])
 
     function(SitesResource, HostFactory, $q) {
 
-//        var site = {};
-//
-
-//
-//        site.get = $q.defer(function getSite() {
-//            SitesResource.get({domain: HostFactory.domain}, siteSuccess, siteError)
-//        });
-//
-//        site.create = function createSite(){
-//            SitesResource.create({domain: HostFactory.domain}, function(res){
-//                console.log(res);
-//                site.site = res.data.site
-//            }, function (err){
-//                console.log(err);
-//            })
-//        };
-//
-//        return site.get.promise;
-
         var site = {};
 
 
