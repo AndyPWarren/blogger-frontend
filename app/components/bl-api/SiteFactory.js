@@ -16,25 +16,22 @@ angular.module("blPrototype.api.sitefactory", [])
             var deferred = $q.defer();
 
             var getError = function siteError(err){
-                console.log(err);
                 if (err.status === 404) {
                     //site doesnt exist
                     //create site
                     console.log("site doesn't exist creating...")
-                    site.create()
+                    site.create().then(function(res){
+                        console.log(res);
+                        deferred.resolve(res);
+                    });
+
                 }
 
-                if (err.status === 403) {
-                    site.authorized = false;
-                    //site hasn't been authorized yet
-                    console.log("site hasn't been authorized yet")
-                }
-                deferred.resolve(err)
             };
 
             var getSuccess = function siteSuccess(res){
                 site.site = res.data.site;
-                deferred.resolve(site)
+                deferred.resolve(res);
             };
 
             SitesResource.get({domain: HostFactory.domain}, getSuccess, getError)
@@ -46,13 +43,14 @@ angular.module("blPrototype.api.sitefactory", [])
             var deferred = $q.defer();
 
             SitesResource.create({domain: HostFactory.domain}, function(res){
+                site.site = res.data.site;
                 deferred.resolve(res);
             }, function(err){
                 deferred.reject(err);
             });
 
             return deferred.promise;
-        }
+        };
 
 
         return site;

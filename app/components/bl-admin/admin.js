@@ -44,27 +44,28 @@ angular.module("blPrototype.admin", [
     "$scope",
     "$state",
     "$location",
-    "UsersResource",
-    "SitesResource",
     "HostFactory",
     "SiteFactory",
-    function($scope, $state, $location, UsersResource, SitesResource, HostFactory, Site){
+    function($scope, $state, $location, HostFactory, Site){
 
-        console.log(Site);
-        Site.get().then(function(site){
-           if (!site.authorized) {
-               $scope.status ="site is awaiting authorization"
-               return $state.go("admin.register");
-           }
 
-           if (site.site.user.length === 0) {
-               //no users prompt registration
-               $state.go("admin.register");
-           } else {
-               //users exist so login
-               $state.go("admin.login");
-           }
+        Site.get().then(function(res){
 
+            console.log(res);
+            console.log(res.data.site);
+
+            if (!res.data.site.users) {
+                return $state.go("admin.register");
+            };
+
+            //site is authorized
+            if (res.data.site.users.length === 0) {
+                //no users prompt registration
+                $state.go("admin.register");
+            } else {
+                //users exist so login
+                $state.go("admin.login");
+            }
         });
     }
 ]);
