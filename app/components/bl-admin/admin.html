@@ -1,11 +1,12 @@
 <div class="col-md-3"></div>
 <div class="container-fluid col-md-6">
-    <span class="site-status" ng-bind="status"></span>
+    <span class="site-status" ng-bind="site.status"></span>
     <ul>
-        <li><a ui-sref="admin.register">register</a></li>
-        <li><a ui-sref="admin.login">login</a></li>
+        <li ng-hide="user"><a ui-sref="admin.register">register</a></li>
+        <li ng-hide="user"><a ui-sref="admin.login">login</a></li>
     </ul>
     <div class="detail" ui-view></div>
+    <button class="btn btn-primary" ng-controller="blLoginCtrl" ng-click="logout()" ng-show="user">logout</button>
 </div>
 
 <div class="col-md-3"></div>
