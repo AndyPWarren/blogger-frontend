@@ -17,9 +17,6 @@ angular.module("blPrototype.header", [
     function (){
         return {
             restrict: "E",
-            scope: {
-                user: "="
-            },
             replace: true,
             templateUrl: "components/bl-header/header.html",
             link: function(scope){
@@ -41,12 +38,6 @@ angular.module("blPrototype.header", [
 ])
 
 .controller("DropdownCtrl", ["$scope", "$log", function($scope, $log){
-    $scope.items = [
-        'The first choice!',
-        'And another choice for you.',
-        'but wait! A third!'
-    ];
-
     $scope.status = {
         isopen: false
     };
