@@ -10,10 +10,11 @@ angular.module("blPrototype.admin.login", [
 .controller("blLoginCtrl", [
     "$scope",
     "$location",
-    "UsersResource",
-    "SitesResource",
+    "$state",
     "HostFactory",
-    function($scope, $location, UsersResource, SitesResource, HostFactory){
+    "UserFactory",
+
+    function($scope, $location, $state, HostFactory, UserFactory){
 
     $scope.emailDomain = HostFactory.emailDomain;
 
@@ -23,6 +24,18 @@ angular.module("blPrototype.admin.login", [
 
     $scope.resetEmailError = function resetEmailError() {
         $scope.loginForm.email.$error.doesntExist = false;
+    };
+
+    $scope.login = function(){
+
+        var credentials = {
+            identifier: "test.user" + HostFactory.emailDomain,
+            password: "password"
+        };
+
+        UserFactory.login(credentials).then(function(res){
+            console.log(res);
+        });
     };
     /**
      * submit login form details
@@ -40,79 +53,31 @@ angular.module("blPrototype.admin.login", [
             password: $scope.login.password
         };
 
-        $scope.getUserSuccess = function getUserSuccess(res) {
-            /**
-             * save user from res data
-             * @param {Object} user
-             */
-            var user = res.data.user;
-            /**
-             * get user's site
-             * @param {string} userSite
-             */
-            //            var userSite = res.data.user.site.domain;
-            //            console.log(userSite);
-            /**
-             * if user doesn't belong to same site as host return error message
-             * @param   {String}  userSite
-             * @param   {String}  $scope.host
-             * @returns {string} $scope.userError
-             */
-            //            if (userSite !== $scope.host) return $scope.userError = credientials.identifier + " is not a user at " + $scope.host;
+        UserFactory.login(credientials).then(function(res){
 
-            /**
-             * login success callback
-             * @param {Object} res
-             */
-            $scope.loginSuccess = function loginSuccess(res){
-                if (res.meta.code === 200) {
-                    $location.path('/');
-                    console.log("logged in")
-                    console.log(res.data.user.fullName);
-                } else {
-                    console.log(res);
-                    $scope.loginForm.password.$error.incorrect = true;
-                }
+            if (!res.meta.errors) {
+                //$state.go('posts');
+                console.log("logged in")
+                console.log(res.data.user.fullName);
+                UserFactory.current().then(function(res){
+                   console.log(res);
+                });
+                //$state.go("posts");
 
-            };
-            /**
-             * login error callback
-             * @param {Object} res
-             */
-            $scope.loginError = function loginError(err){
-                console.log("error")
-                console.log(err)
+            }
 
-            };
-            /**
-             * login user in
-             * @param {Object} credientials
-             */
-            UsersResource.login(credientials, $scope.loginSuccess, $scope.loginError)
+            if (res.meta.errors === "That email doesn't seem right") {
+                $scope.loginForm.email.$error.doesntExist = true;
 
-        };
+            } else if (res.meta.errors === "Whoa, that password wasn't quite right!") {
+                $scope.loginForm.password.$error.incorrect = true;
+            }
+        });
 
 
-        $scope.getUserError = function getUserError(err) {
-            console.log(err);
-            $scope.loginForm.email.$error.doesntExist = true;
-        };
-
-        /**
-         * query API for user with email
-         * @param {Object} res user object from resource
-         */
-        UsersResource.get({email: credientials.identifier}, $scope.getUserSuccess, $scope.getUserError);
 
 
     };
-
-    $scope.logout = function logout(){
-        console.log("clicked");
-        UsersResource.logout(function(res){
-            console.log(res);
-        });
-    }
 
 }]);
 
