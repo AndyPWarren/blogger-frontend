@@ -19,6 +19,7 @@ angular.module("blPrototype.header", [
             restrict: "E",
             replace: true,
             templateUrl: "components/bl-header/header.html",
+            controller: "blHeaderCtrl",
             link: function(scope){
                 /**
                  * @method setHeader
@@ -36,6 +37,21 @@ angular.module("blPrototype.header", [
         };
     }
 ])
+
+.controller("blHeaderCtrl", [
+    "$scope",
+    "UserFactory",
+    "HostFactory",
+    function($scope, UserFactory, HostFactory){
+        UserFactory.current().then(function(res){
+            $scope.user = res.data.user
+        })
+        $scope.host = HostFactory.domain;
+
+
+    }
+])
+
 
 .controller("DropdownCtrl", ["$scope", "$log", function($scope, $log){
     $scope.status = {
