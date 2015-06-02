@@ -53,7 +53,7 @@ angular.module("blPrototype.api.userfactory", [])
             };
 
             var logoutError = function logoutError(err){
-                deferred.reject(res);
+                deferred.reject(err);
             };
 
             UsersResource.logout(logoutSuccess, logoutError);
@@ -65,10 +65,26 @@ angular.module("blPrototype.api.userfactory", [])
 
             var deferred = $q.defer();
 
+            console.log(Site);
             userDetails.site = Site.site.id;
 
             UsersResource.register(userDetails, function(res){
 
+                deferred.resolve(res);
+
+            }, function(err){
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
+
+        user.current = function() {
+
+            var deferred = $q.defer();
+
+            UsersResource.current(function(res){
+                user.user = res.data.user;
                 deferred.resolve(res);
 
             }, function(err){
