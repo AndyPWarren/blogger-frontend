@@ -1,6 +1,6 @@
 
 <!--LOGIN FORM-->
-<form name="loginForm" class="form-group" ng-submit="submitLoginForm()" bl-change-focus="input, move-to-focus, (@)">
+<form name="loginForm" class="form-group" ng-submit="submitLoginForm()" bl-change-focus="input, move-focus-to, password, (@)">
 
     <!--EMAIL-->
     <div class="col-md-12 form-inline">
@@ -35,4 +35,6 @@
     </div>
 
 </form>
+
+<button class="btn btn-primary" ng-click="login()">login</button>
 
