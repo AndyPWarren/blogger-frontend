@@ -1,18 +1,27 @@
-<header class="container-fluid">
-    <div class="row">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header navbar-center">
-                    <a class="navbar-brand" href="#">
-                        Blogger
-                    </a>
-                </div>
-                <p class="navbar-text navbar-right">
-                    <a href="#" class="navbar-link">
-                        <img class="img-circle" ng-src="{{ user.avatar.sm.url }}" alt="{{ user.fullName }}">
-                    </a>
-                </p>
-            </div>
-        </nav>
+<div ng-controller="DropdownCtrl">
+    <!-- Simple dropdown -->
+    <span class="dropdown" dropdown on-toggle="toggled(open)">
+        <a href class="dropdown-toggle" dropdown-toggle>
+            Click me for a dropdown, yo!
+        </a>
+        <ul class="dropdown-menu">
+            <li ng-repeat="choice in items">
+                <a href>{{choice}}</a>
+            </li>
+        </ul>
+    </span>
+
+    <!-- Single button -->
+    <div class="btn-group" dropdown is-open="status.isopen">
+        <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+            Button dropdown <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+        </ul>
     </div>
-</header>
+</div>

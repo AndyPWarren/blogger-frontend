@@ -12,7 +12,8 @@ angular.module("blPrototype", [
     "blPrototype.admin",
     "ngRoute",
     "ui.router",
-    "config"
+    "config",
+    "ui.bootstrap"
 ])
 /**
  * @method config
