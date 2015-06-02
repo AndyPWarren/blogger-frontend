@@ -58,9 +58,9 @@ angular.module("blPrototype.admin.register", [
 
         $scope.registerButton = function(){
             var user = {
-                firstName: "1",
-                lastName: "2",
-                email: "1.2" + HostFactory.emailDomain,
+                firstName: "test",
+                lastName: "user",
+                email: "test.user" + HostFactory.emailDomain,
                 password: "password"
             };
 
