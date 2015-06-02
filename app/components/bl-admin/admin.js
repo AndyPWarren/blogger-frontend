@@ -79,20 +79,21 @@ angular.module("blPrototype.admin", [
     "user",
     function($scope, $state, $location, Site, UserFactory, user){
 
-        var site = {};
+        $scope.site = {};
 
-        console.log(user)
+        console.log(user);
 
         if (user) {
             $scope.user = true;
-            return $scope.site.status = "please logout";
+            $scope.site.status = "please logout";
         }
 
         $scope.logout = function (){
             UserFactory.logout().then(function(res){
                 console.log(res);
             })
-        }
+        };
+
         Site.get().then(function(res){
 
             console.log(res);

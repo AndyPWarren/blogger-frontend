@@ -35,6 +35,7 @@ angular.module("blPrototype.admin.login", [
 
         UserFactory.login(credentials).then(function(res){
             console.log(res);
+            $state.go("posts");
         });
     };
     /**

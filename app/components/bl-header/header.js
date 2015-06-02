@@ -13,8 +13,7 @@ angular.module("blPrototype.header", [
  * @constructor
  * @class blHeader
  */
-.directive("blHeader", [
-    function (){
+.directive("blHeader", [function (){
         return {
             restrict: "E",
             replace: true,
@@ -40,9 +39,17 @@ angular.module("blPrototype.header", [
 
 .controller("blHeaderCtrl", [
     "$scope",
+    "$state",
     "UserFactory",
     "HostFactory",
-    function($scope, UserFactory, HostFactory){
+    function($scope, $state, UserFactory, HostFactory){
+
+        $scope.logout = function(){
+            UserFactory.logout().then(function(){
+               $state.go("posts")
+            });
+        };
+
         UserFactory.current().then(function(res){
             $scope.user = res.data.user
         })
@@ -57,8 +64,6 @@ angular.module("blPrototype.header", [
     $scope.status = {
         isopen: false
     };
-
-    console.log($scope.status);
 
     $scope.toggled = function(open) {
         $log.log('Dropdown is now: ', open);

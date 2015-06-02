@@ -5,25 +5,17 @@
  */
 angular.module("blPrototype.posts", [
     "blPrototype.api.posts",
-    "ngRoute"
+    "ui.router"
 ])
 
-.config(["$routeProvider",
-    function($routeProvider) {
-        $routeProvider
-            .when("/", {
-                templateUrl: "components/bl-posts/posts.html",
-                controller: "blPostsCtrl"
-            })
-            .when("/:postId", {
-                templateUrl: "components/bl-posts/post.html",
-                controller: "blPostCtrl"
-            })
-            .otherwise({
-                redirectTo: "/"
-            });
-    }
-])
+.config(["$stateProvider", function($stateProvider) {
+    $stateProvider
+    .state("posts", {
+        url: "/",
+        templateUrl: "components/bl-posts/posts.html",
+        controller: "blPostsCtrl"
+    });
+}])
 
 .controller("blPostsCtrl", ["$scope", "PostsResource", function($scope, PostsResource){
 
