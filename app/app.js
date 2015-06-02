@@ -20,7 +20,15 @@ angular.module("blPrototype", [
  */
 .config([
     "$locationProvider",
-    function ($locationProvider) {
+    "$httpProvider",
+    function ($locationProvider, $httpProvider) {
         $locationProvider.html5Mode(true).hashPrefix = "!";
+
+        $httpProvider.defaults.useXDomain = true;
+        $httpProvider.defaults.withCredentials = true;
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
     }
 ]);
+
+
