@@ -43,9 +43,10 @@
 </head>
 <body>
 
-    <bl-header data-user="current"></bl-header>
+<!--    <bl-header data-user="current"></bl-header>-->
 
-    <div class="content" ui-view></div>
+    <div ui-view="nav"></div>
+    <div ui-view="content"></div>
 
     <!--[if lt IE 8]>
         <p>Your browser is <strong>ancient</strong> and will not work with this site. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
