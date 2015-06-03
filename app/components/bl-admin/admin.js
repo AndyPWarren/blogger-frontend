@@ -16,51 +16,93 @@ angular.module("blPrototype.admin", [
 
 .config(["$stateProvider", function($stateProvider) {
         $stateProvider
-            .state("admin", {
-                url: "/admin",
-                templateUrl: "components/bl-admin/admin.html",
-                controller: "blAdminCtrl",
-                resolve: {
-                    user: ["UserFactory", "$state", function(UserFactory, $state){
-                        return UserFactory.current().then(function(res){
-                            //user is logged in should be prompted to log out
-//                            $state.go("posts");
-                            var principle = res.data.user;
-                            return principle;
-                        }, function(err){
-                            var principle = null;
-                            return principle;
-                        })
-                    }]
+            .state("app.admin", {
+                url: "admin",
+                views: {
+                    "nav": {
+                        templateUrl: "./components/bl-header/header.html",
+                        controller: "blHeaderCtrl"
+                    },
+                    "content@": {
+                        templateUrl: './components/bl-admin/admin.html',
+                        controller: "blAdminCtrl",
+//                        resolve: {
+//                            user: ["UserFactory", "$state", function(UserFactory, $state){
+//                                return UserFactory.current().then(function(res){
+//                                    //user is logged in should be prompted to log out
+//        //                            $state.go("posts");
+//                                    var principle = res.data.user;
+//                                    return principle;
+//                                }, function(err){
+//                                    var principle = null;
+//                                    return principle;
+//                                })
+//                            }]
+//                        }
+                    }
                 }
+//                url: "/admin",
+//                templateUrl: "components/bl-admin/admin.html",
+//                controller: "blAdminCtrl",
+
             })
-            .state("admin.login", {
+            .state("app.admin.login", {
                 url: "/login",
-                templateUrl: "components/bl-admin/login/login.html",
-                controller: "blLoginCtrl",
-                resolve: {
-                    user: ["UserFactory", "$state", function(UserFactory, $state){
-                        return UserFactory.current().then(function(res){
-                            $state.go("admin");
-                        }, function(err){
-
-                        })
-                    }]
+                views:{
+                    "admin@app.admin" : {
+                        templateUrl: "components/bl-admin/login/login.html",
+                        controller: "blLoginCtrl",
+//                        resolve: {
+//                            user: ["UserFactory", "$state", function(UserFactory, $state){
+//                                return UserFactory.current().then(function(res){
+//                                    $state.go("admin");
+//                                }, function(err){
+//
+//                                })
+//                            }]
+//                        }
+                    }
                 }
+//                templateUrl: "components/bl-admin/login/login.html",
+//                controller: "blLoginCtrl",
+//                resolve: {
+//                    user: ["UserFactory", "$state", function(UserFactory, $state){
+//                        return UserFactory.current().then(function(res){
+//                            $state.go("admin");
+//                        }, function(err){
+//
+//                        })
+//                    }]
+//                }
             })
-            .state("admin.register", {
+            .state("app.admin.register", {
                 url: "/register",
-                templateUrl: "components/bl-admin/register/register.html",
-                controller: "blRegisterCtrl",
-                resolve: {
-                    user: ["UserFactory", "$state", function(UserFactory, $state){
-                        return UserFactory.current().then(function(res){
-                            $state.go("admin");
-                        }, function(err){
-
-                        })
-                    }]
+                views:{
+                    "admin@app.admin" : {
+                        templateUrl: "components/bl-admin/register/register.html",
+                        controller: "blRegisterCtrl",
+//                        resolve: {
+//                            user: ["UserFactory", "$state", function(UserFactory, $state){
+//                                return UserFactory.current().then(function(res){
+//                                    $state.go("admin");
+//                                }, function(err){
+//
+//                                })
+//                            }]
+//                        }
+                    }
                 }
+//                templateUrl: "components/bl-admin/register/register.html",
+//                controller: "blRegisterCtrl",
+//                resolve: {
+//                    user: ["UserFactory", "$state", function(UserFactory, $state){
+//                        return UserFactory.current().then(function(res){
+//                            $state.go("admin");
+//                        }, function(err){
+//
+//                        })
+//                    }]
+//                }
             });
     }
 
@@ -76,39 +118,37 @@ angular.module("blPrototype.admin", [
     "$location",
     "SiteFactory",
     "UserFactory",
-    "user",
-    function($scope, $state, $location, Site, UserFactory, user){
+    "$rootScope",
+    function($scope, $state, $location, Site, UserFactory, $rootScope){
 
         $scope.site = {};
 
-        console.log(user);
-
-        if (user) {
-            $scope.user = true;
-            $scope.site.status = "please logout";
-        }
 
         $scope.logout = function (){
             UserFactory.logout().then(function(res){
-                console.log(res);
+                $state.go("app");
             })
         };
 
+        if ($rootScope.user) {
+            //some user is here
+            return $scope.site.status = "please logout";
+        }
+
+
         Site.get().then(function(res){
 
-            console.log(res);
-
             if (!res.data.site.users) {
-                return $state.go("admin.register");
+                return $state.go("app.admin.register");
             };
 
             //site is authorized
             if (res.data.site.users.length === 0) {
                 //no users prompt registration
-                $state.go("admin.register");
+                $state.go("app.admin.register");
             } else {
                 //users exist so login
-                $state.go("admin.login");
+                $state.go("app.admin.login");
             }
         });
     }
