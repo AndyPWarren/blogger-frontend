@@ -41,15 +41,14 @@ angular.module("blPrototype.admin.register", [
 
                     var time = $interval(function(){
                         UserFactory.login(loginCredientials).then(function(res){
-                            console.log("logged in ");
-                            $state.go('posts');
+                            $state.go('app');
                         });
                         $interval.cancel(time);
                     }, 2000);
 
                 } else {
                     //user is created redirect
-                    $state.go('posts');
+                    $state.go('app');
                 }
             });
 
@@ -77,15 +76,14 @@ angular.module("blPrototype.admin.register", [
 
                     var time = $interval(function(){
                         UserFactory.login(loginCredientials).then(function(res){
-                            console.log("logged in ");
-                            $state.go('posts');
+                            $state.go('app');
                         });
                         $interval.cancel(time);
                     }, 2000);
 
                 } else {
                     //user is created redirect
-                    $state.go('posts');
+                    $state.go('app');
                 }
             });
         }

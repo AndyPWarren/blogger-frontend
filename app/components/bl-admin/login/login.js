@@ -34,8 +34,7 @@ angular.module("blPrototype.admin.login", [
         };
 
         UserFactory.login(credentials).then(function(res){
-            console.log(res);
-            $state.go("posts");
+            $state.go("app");
         });
     };
     /**
@@ -57,14 +56,7 @@ angular.module("blPrototype.admin.login", [
         UserFactory.login(credientials).then(function(res){
 
             if (!res.meta.errors) {
-                //$state.go('posts');
-                console.log("logged in")
-                console.log(res.data.user.fullName);
-                UserFactory.current().then(function(res){
-                   console.log(res);
-                });
-                //$state.go("posts");
-
+                $state.go('app');
             }
 
             if (res.meta.errors === "That email doesn't seem right") {
