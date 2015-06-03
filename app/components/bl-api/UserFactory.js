@@ -3,12 +3,13 @@
 angular.module("blPrototype.api.userfactory", [])
 
     .factory("UserFactory", [
+    "$rootScope",
     "UsersResource",
     "SiteFactory",
     "HostFactory",
     "$q",
 
-    function(UsersResource, Site, HostFactory, $q) {
+    function($rootScope, UsersResource, Site, HostFactory, $q) {
 
         var user = {};
 
@@ -20,7 +21,7 @@ angular.module("blPrototype.api.userfactory", [])
             };
 
             var getError = function getError(err){
-                deferred.reject(res);
+                deferred.reject(err);
             };
 
             UsersResource.get(credientials, getSuccess, getError);
@@ -33,6 +34,8 @@ angular.module("blPrototype.api.userfactory", [])
             var deferred = $q.defer();
 
             var loginSuccess = function loginSuccess(res){
+                $rootScope.isAuthenticated = true;
+                $rootScope.user = res.data.user;
                 deferred.resolve(res);
             };
 
@@ -49,6 +52,8 @@ angular.module("blPrototype.api.userfactory", [])
             var deferred = $q.defer();
 
             var logoutSuccess = function logoutSuccess(res){
+                $rootScope.isAuthenticated = false;
+                $rootScope.user = null;
                 deferred.resolve(res);
             };
 
@@ -84,11 +89,14 @@ angular.module("blPrototype.api.userfactory", [])
             var deferred = $q.defer();
 
             UsersResource.current(function(res){
-                user.user = res.data.user;
+                $rootScope.user = res.data.user;
+                $rootScope.isAuthenticated = true;
                 deferred.resolve(res);
+
 
             }, function(err){
                 deferred.reject(err);
+                $rootScope.isAuthenticated = false;
             });
 
             return deferred.promise;
