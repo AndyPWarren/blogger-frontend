@@ -1,0 +1,43 @@
+
+<h3>Login</h3>
+
+<button class="btn btn-primary" ui-sref="app.admin.register">register</button>
+<!--LOGIN FORM-->
+<form name="loginForm" class="form-group" ng-submit="submitLoginForm()" bl-change-focus="input, move-focus-to, password, (@)">
+
+    <!--EMAIL-->
+    <div class="col-md-12 form-inline">
+        <label class="col-md-3">Email</label>
+        <input id="input" type="text" name="email" class="col-md-4 form-control" placeholder="someone" ng-model="login.email" ng-keydown="resetEmailError()" ng-required="true">
+        <input id="move-focus-to" type="text" class="col-md-4 form-control" ng-readonly=true ng-disabled=true ng-model="emailDomain">
+
+    </div>
+    <div class="col-md-12 form-inline form-error" ng-messages="loginForm.email.$dirty && loginForm.email.$error" role="alert">
+
+        <!--Required, user doesn't exist-->
+        <span class="col-md-4 col-md-offset-3 error-message" ng-message="required">Email is required</span>
+        <span class="col-md-4 col-md-offset-3 error-message" ng-message="doesntExist">User doesn't exist</span>
+    </div>
+
+    <!-- PASSWOORD -->
+    <div class="col-md-12 form-inline">
+
+        <label class="col-md-3">Password</label>
+        <input id="password" type="password" name="password" class=" col-md-4 form-control" placeholder="******" ng-keydown="resetPasswordError()" ng-model="login.password" ng-required="true" ng-minlength="6">
+    </div>
+    <div class="col-md-12 form-inline form-error" ng-messages="loginForm.password.$dirty && loginForm.password.$error">
+        <!--Required, incorrect password-->
+        <span class="col-md-4 col-md-offset-3 error-message" ng-message="required">Password is required</span>
+        <span class="col-md-4 col-md-offset-3 error-message" ng-message="incorrect">Password is incorrect</span>
+        <span class="col-md-4 col-md-offset-3 error-message" ng-message="minlength">Password must have a minimum of 6 characters</span>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="col-md-12 form-inline">
+        <button type="submit" class="col-md-offset-3 btn btn-default" ng-disabled="loginForm.$invalid">Login</button>
+    </div>
+
+</form>
+
+<button class="btn btn-primary" ng-click="login()">login</button>
+

@@ -1,0 +1,9 @@
+<section class="container-fluid">
+   posts view
+    <div class="row" ng-repeat="post in posts track by post.id">
+        <h3 class="postTitle"><a href="/app/{{post.title}}">{{post.title}}</a></h3>
+<!--        <h5>By: {{posts.author}} | {{posts.datePublished}}</h5>-->
+
+    </div>
+
+</section>

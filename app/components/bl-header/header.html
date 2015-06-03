@@ -1,18 +1,16 @@
-<header class="container-fluid">
-    <div class="row">
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header navbar-center">
-                    <a class="navbar-brand" href="#">
-                        Blogger
-                    </a>
-                </div>
-                <p class="navbar-text navbar-right">
-                    <a href="#" class="navbar-link">
-                        <img class="img-circle" ng-src="{{ user.avatar.sm.url }}" alt="{{ user.fullName }}">
-                    </a>
-                </p>
-            </div>
-        </nav>
+<nav class="navbar navbar-default navbar-fixed-bottom" ng-if="isAuthenticated">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Blogger for {{ host }}</a>
     </div>
-</header>
+    <div ng-controller="DropdownCtrl">
+        <!-- user button -->
+        <div class="btn-group dropup pull-right" dropdown is-open="status.isopen">
+            <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                {{ user.fullName }}<span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href ng-click="logout()">logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
