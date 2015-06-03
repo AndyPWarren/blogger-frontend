@@ -15,6 +15,25 @@ angular.module("blPrototype", [
     "config",
     "ui.bootstrap"
 ])
+
+.config(["$stateProvider", function($stateProvider) {
+    $stateProvider
+        .state("app", {
+            url: "/",
+            views: {
+                "content": {
+                    templateUrl: './components/bl-posts/posts.html',
+                    controller: "blPostsCtrl"
+                },
+                "nav": {
+                    templateUrl: "./components/bl-header/header.html",
+                    controller: "blHeaderCtrl",
+                }
+            }
+        })
+    }
+])
+
 /**
  * @method config
  * @param  {Service} $locationProvider
@@ -29,6 +48,13 @@ angular.module("blPrototype", [
         $httpProvider.defaults.withCredentials = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
+    }
+])
+
+.run([
+    "UserFactory",
+    function(UserFactory){
+        UserFactory.current().then();
     }
 ]);
 
