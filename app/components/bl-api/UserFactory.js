@@ -2,17 +2,28 @@
 
 angular.module("blPrototype.api.userfactory", [])
 
-    .factory("UserFactory", [
+.factory("UserFactory", [
     "$rootScope",
+    "$q",
     "UsersResource",
     "SiteFactory",
-    "HostFactory",
-    "$q",
-
-    function($rootScope, UsersResource, Site, HostFactory, $q) {
+    /**
+     * @constructor
+     * @param   {Object}   $rootScope
+     * @param   {Object}   $q            Angular promise API
+     * @param   {Object}   UsersResource Angular resource for user endpoint
+     * @param   {Object}   SiteFactory   factory for site manipulation
+     * @returns {Object}   user
+     */
+    function($rootScope, $q, UsersResource, SiteFactory) {
 
         var user = {};
 
+        /**
+         * get a user
+         * @param   {String} email users email address
+         * @returns {Object} deferred.promise
+         */
         user.get = function(email) {
             var deferred = $q.defer();
 
@@ -24,17 +35,24 @@ angular.module("blPrototype.api.userfactory", [])
                 deferred.reject(err);
             };
 
-            UsersResource.get(credientials, getSuccess, getError);
+            UsersResource.get(email, getSuccess, getError);
 
             return deferred.promise;
         };
 
+        /**
+         * login a user
+         * @param   {Object} credientials identifer, password
+         * @returns {Object} deferred.promise
+         */
         user.login = function(credientials) {
 
             var deferred = $q.defer();
 
             var loginSuccess = function loginSuccess(res){
+                //set an auth flag as true on $rootScope
                 $rootScope.isAuthenticated = true;
+                //add the current user object to $rootScope
                 $rootScope.user = res.data.user;
                 deferred.resolve(res);
             };
@@ -47,12 +65,18 @@ angular.module("blPrototype.api.userfactory", [])
 
             return deferred.promise;
         };
+        /**
+         * logout the user
+         * @returns {Object} deferred.promise
+         */
         user.logout = function() {
 
             var deferred = $q.defer();
 
             var logoutSuccess = function logoutSuccess(res){
+                //set an auth flag as false on $rootScope
                 $rootScope.isAuthenticated = false;
+                //remove user from $rootScope
                 $rootScope.user = null;
                 deferred.resolve(res);
             };
@@ -66,38 +90,55 @@ angular.module("blPrototype.api.userfactory", [])
             return deferred.promise;
         };
 
+        /**
+         * Register a user
+         * @param   {Object}   userDetails
+         * @returns {Object} deferred.promise
+         */
         user.register = function(userDetails) {
 
             var deferred = $q.defer();
+            //set the user site id
+            userDetails.site = SiteFactory.site.id;
 
-            console.log(Site);
-            userDetails.site = Site.site.id;
-
-            UsersResource.register(userDetails, function(res){
-
+            var registerSuccess = function registerSuccess(res){
                 deferred.resolve(res);
+            };
 
-            }, function(err){
+            var registerError = function registerError(err){
                 deferred.reject(err);
-            });
+            };
+
+            UsersResource.register(userDetails, registerSuccess, registerError);
 
             return deferred.promise;
         };
 
+        /**
+         * get current logged in user
+         * @returns {Object} deferred.promise
+         */
         user.current = function() {
 
             var deferred = $q.defer();
 
-            UsersResource.current(function(res){
-                $rootScope.user = res.data.user;
+            var currentUserSuccess = function currentUserSuccess(res){
+                //set an auth flag as true on $rootScope
                 $rootScope.isAuthenticated = true;
+                //add the current user object to $rootScope
+                $rootScope.user = res.data.user;
                 deferred.resolve(res);
+            };
 
-
-            }, function(err){
-                deferred.reject(err);
+            var currentUserError = function currentUserError(err){
+                //set an auth flag as false on $rootScope
                 $rootScope.isAuthenticated = false;
-            });
+                //remove user from $rootScope
+                $rootScope.user = err.data.user;
+                deferred.reject(err);
+            };
+
+            UsersResource.current(currentUserSuccess, currentUserError);
 
             return deferred.promise;
         };

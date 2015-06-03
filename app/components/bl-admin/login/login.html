@@ -9,7 +9,7 @@
     <div class="col-md-12 form-inline">
         <label class="col-md-3">Email</label>
         <input id="input" type="text" name="email" class="col-md-4 form-control" placeholder="someone" ng-model="login.email" ng-keydown="resetEmailError()" ng-required="true">
-        <input id="move-focus-to" type="text" class="col-md-4 form-control" ng-readonly=true ng-disabled=true ng-model="emailDomain">
+        <input id="move-focus-to" type="text" class="col-md-4 form-control" ng-readonly=true ng-disabled=true ng-model="host.emailDomain">
 
     </div>
     <div class="col-md-12 form-inline form-error" ng-messages="loginForm.email.$dirty && loginForm.email.$error" role="alert">

@@ -12,19 +12,17 @@ angular.module("blPrototype.admin.register", [
     "$location",
     "$interval",
     "$state",
-    "HostFactory",
+    "$rootScope",
     "UserFactory",
 
-    function($scope, $location, $interval, $state, HostFactory, UserFactory){
-
-        $scope.emailDomain = HostFactory.emailDomain;
+    function($scope, $location, $interval, $state, $rootScope, UserFactory){
 
         $scope.registerUser = function registerUser(){
 
             var user = {
                 firstName: $scope.register.firstname,
                 lastName: $scope.register.lastname,
-                email: $scope.register.email + HostFactory.emailDomain,
+                email: $scope.register.email + $rootScope.host.emailDomain,
                 password: $scope.register.password
             };
 
@@ -59,7 +57,7 @@ angular.module("blPrototype.admin.register", [
             var user = {
                 firstName: "test",
                 lastName: "user",
-                email: "test.user" + HostFactory.emailDomain,
+                email: "test.user" + $rootScope.host.emailDomain,
                 password: "password"
             };
 

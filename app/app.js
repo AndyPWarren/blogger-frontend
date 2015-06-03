@@ -52,8 +52,21 @@ angular.module("blPrototype", [
 ])
 
 .run([
+    "$rootScope",
+    "$location",
     "UserFactory",
-    function(UserFactory){
+    function($rootScope, $location, UserFactory) {
+
+        $rootScope.host = {};
+
+        if ($location.host() === "localhost") {
+            //append '.com' to localhost for testing
+            $rootScope.host.domain = $location.host() + ".com";
+        } else {
+            $rootScope.host.domain = $location.host();
+        }
+        $rootScope.host.emailDomain = "@" + $rootScope.host.domain;
+
         UserFactory.current().then();
     }
 ]);
