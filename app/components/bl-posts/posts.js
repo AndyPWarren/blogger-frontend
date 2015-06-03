@@ -8,15 +8,6 @@ angular.module("blPrototype.posts", [
     "ui.router"
 ])
 
-.config(["$stateProvider", function($stateProvider) {
-    $stateProvider
-    .state("posts", {
-        url: "/",
-        templateUrl: "components/bl-posts/posts.html",
-        controller: "blPostsCtrl"
-    });
-}])
-
 .controller("blPostsCtrl", ["$scope", "PostsResource", function($scope, PostsResource){
 
     $scope.posts = PostsResource.get();
