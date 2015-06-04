@@ -20,6 +20,28 @@ angular.module("blPrototype.api.userfactory", [])
         var user = {};
 
         /**
+         * un authorization function
+         * removes user from rootScope
+         */
+        var unAuth = function(){
+            //set an auth flag as false on $rootScope
+            $rootScope.isAuthenticated = false;
+            //remove user from $rootScope
+            $rootScope.user = null;
+        };
+
+        /**
+         * authorization function add user to rootScope
+         * @param {Object} user user details from API
+         */
+        var auth = function(user){
+            //set an auth flag as true on $rootScope
+            $rootScope.isAuthenticated = true;
+            //remove user from $rootScope
+            $rootScope.user = user;
+        };
+
+        /**
          * get a user
          * @param   {String} email users email address
          * @returns {Object} deferred.promise
@@ -50,10 +72,7 @@ angular.module("blPrototype.api.userfactory", [])
             var deferred = $q.defer();
 
             var loginSuccess = function loginSuccess(res){
-                //set an auth flag as true on $rootScope
-                $rootScope.isAuthenticated = true;
-                //add the current user object to $rootScope
-                $rootScope.user = res.data.user;
+                auth(res.data.user);
                 deferred.resolve(res);
             };
 
@@ -74,10 +93,7 @@ angular.module("blPrototype.api.userfactory", [])
             var deferred = $q.defer();
 
             var logoutSuccess = function logoutSuccess(res){
-                //set an auth flag as false on $rootScope
-                $rootScope.isAuthenticated = false;
-                //remove user from $rootScope
-                $rootScope.user = null;
+                unAuth();
                 deferred.resolve(res);
             };
 
@@ -102,7 +118,9 @@ angular.module("blPrototype.api.userfactory", [])
             userDetails.site = SiteFactory.site.id;
 
             var registerSuccess = function registerSuccess(res){
+                auth(res.data.user);
                 deferred.resolve(res);
+
             };
 
             var registerError = function registerError(err){
@@ -123,19 +141,14 @@ angular.module("blPrototype.api.userfactory", [])
             var deferred = $q.defer();
 
             var currentUserSuccess = function currentUserSuccess(res){
-                //set an auth flag as true on $rootScope
-                $rootScope.isAuthenticated = true;
-                //add the current user object to $rootScope
-                $rootScope.user = res.data.user;
+                auth(res.data.user);
                 deferred.resolve(res);
             };
 
             var currentUserError = function currentUserError(err){
-                //set an auth flag as false on $rootScope
-                $rootScope.isAuthenticated = false;
-                //remove user from $rootScope
-                $rootScope.user = err.data.user;
+                unAuth();
                 deferred.reject(err);
+
             };
 
             UsersResource.current(currentUserSuccess, currentUserError);
