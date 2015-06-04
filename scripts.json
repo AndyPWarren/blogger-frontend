@@ -13,7 +13,6 @@
         "./app/components/bl-api/PostsResource.js",
         "./app/components/bl-api/SitesResource.js",
         "./app/components/bl-api/UsersResource.js",
-        "./app/components/bl-api/hostFactory.js",
         "./app/components/bl-api/SiteFactory.js",
         "./app/components/bl-api/UserFactory.js",
         "./app/components/bl-api/api.js",
