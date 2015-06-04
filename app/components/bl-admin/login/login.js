@@ -3,20 +3,22 @@
  * @module   blPrototype.login
  * @author   SpectraKey
  */
-angular.module("blPrototype.admin.login", [
-
-])
+angular.module("blPrototype.admin.login", [])
 
 .controller("blLoginCtrl", [
     "$scope",
-    "$location",
     "$state",
-    "HostFactory",
+    "$rootScope",
     "UserFactory",
 
-    function($scope, $location, $state, HostFactory, UserFactory){
-
-    $scope.emailDomain = HostFactory.emailDomain;
+    /**
+     * @constructor
+     * @param {Object}   $scope
+     * @param {Object}   $state
+     * @param {Object} $rootScope  used for host info
+     * @param {Object} UserFactory user functions
+     */
+    function($scope, $state, $rootScope, UserFactory){
 
     $scope.resetPasswordError = function resetPasswordError() {
         $scope.loginForm.password.$error.incorrect = false;
@@ -29,7 +31,7 @@ angular.module("blPrototype.admin.login", [
     $scope.login = function(){
 
         var credentials = {
-            identifier: "test.user" + HostFactory.emailDomain,
+            identifier: "test.user" + $rootScope.host.emailDomain,
             password: "password"
         };
 
@@ -49,7 +51,7 @@ angular.module("blPrototype.admin.login", [
          * @type {Object}
          */
         var credientials = {
-            identifier: $scope.login.email + HostFactory.emailDomain,
+            identifier: $scope.login.email + $rootScope.host.emailDomain,
             password: $scope.login.password
         };
 
@@ -66,10 +68,6 @@ angular.module("blPrototype.admin.login", [
                 $scope.loginForm.password.$error.incorrect = true;
             }
         });
-
-
-
-
     };
 
 }]);

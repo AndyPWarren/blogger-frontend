@@ -43,18 +43,15 @@ angular.module("blPrototype.header", [
     "$rootScope",
     "$scope",
     "$state",
-    "HostFactory",
     "UserFactory",
 
-    function($rootScope, $scope, $state, HostFactory, UserFactory){
+    function($rootScope, $scope, $state, UserFactory){
 
         $scope.logout = function(){
             UserFactory.logout().then(function(){
                 $state.go("app")
             });
         };
-
-        $scope.host = HostFactory.domain;
     }
 ])
 
