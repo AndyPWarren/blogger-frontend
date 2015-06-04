@@ -26,25 +26,8 @@ angular.module("blPrototype.admin", [
                     "content@": {
                         templateUrl: './components/bl-admin/admin.html',
                         controller: "blAdminCtrl",
-//                        resolve: {
-//                            user: ["UserFactory", "$state", function(UserFactory, $state){
-//                                return UserFactory.current().then(function(res){
-//                                    //user is logged in should be prompted to log out
-//        //                            $state.go("posts");
-//                                    var principle = res.data.user;
-//                                    return principle;
-//                                }, function(err){
-//                                    var principle = null;
-//                                    return principle;
-//                                })
-//                            }]
-//                        }
                     }
                 }
-//                url: "/admin",
-//                templateUrl: "components/bl-admin/admin.html",
-//                controller: "blAdminCtrl",
-
             })
             .state("app.admin.login", {
                 url: "/login",
@@ -52,28 +35,8 @@ angular.module("blPrototype.admin", [
                     "admin@app.admin" : {
                         templateUrl: "components/bl-admin/login/login.html",
                         controller: "blLoginCtrl",
-//                        resolve: {
-//                            user: ["UserFactory", "$state", function(UserFactory, $state){
-//                                return UserFactory.current().then(function(res){
-//                                    $state.go("admin");
-//                                }, function(err){
-//
-//                                })
-//                            }]
-//                        }
                     }
                 }
-//                templateUrl: "components/bl-admin/login/login.html",
-//                controller: "blLoginCtrl",
-//                resolve: {
-//                    user: ["UserFactory", "$state", function(UserFactory, $state){
-//                        return UserFactory.current().then(function(res){
-//                            $state.go("admin");
-//                        }, function(err){
-//
-//                        })
-//                    }]
-//                }
             })
             .state("app.admin.register", {
                 url: "/register",
@@ -81,28 +44,8 @@ angular.module("blPrototype.admin", [
                     "admin@app.admin" : {
                         templateUrl: "components/bl-admin/register/register.html",
                         controller: "blRegisterCtrl",
-//                        resolve: {
-//                            user: ["UserFactory", "$state", function(UserFactory, $state){
-//                                return UserFactory.current().then(function(res){
-//                                    $state.go("admin");
-//                                }, function(err){
-//
-//                                })
-//                            }]
-//                        }
                     }
                 }
-//                templateUrl: "components/bl-admin/register/register.html",
-//                controller: "blRegisterCtrl",
-//                resolve: {
-//                    user: ["UserFactory", "$state", function(UserFactory, $state){
-//                        return UserFactory.current().then(function(res){
-//                            $state.go("admin");
-//                        }, function(err){
-//
-//                        })
-//                    }]
-//                }
             });
     }
 
@@ -113,41 +56,52 @@ angular.module("blPrototype.admin", [
 }])
 
 .controller("blAdminCtrl", [
+    "$rootScope",
     "$scope",
     "$state",
-    "$location",
     "SiteFactory",
     "UserFactory",
-    "$rootScope",
-    function($scope, $state, $location, Site, UserFactory, $rootScope){
+    /**
+     * @constructor
+     * @param   {Object}   $rootScope
+     * @param   {Object}   $scope
+     * @param   {Object}   $state
+     * @param   {Object}   SiteFactory wrapper for site
+     * @param   {[[Type]]} UserFactory wrapper for user
+     */
+    function($rootScope, $scope, $state, SiteFactory, UserFactory){
 
         $scope.site = {};
 
-
         $scope.logout = function (){
             UserFactory.logout().then(function(res){
+                //direct to posts view
                 $state.go("app");
             })
         };
 
+        //if user exists
         if ($rootScope.user) {
-            //some user is here
+            //dont proceed with displaying a view
             return $scope.site.status = "please logout";
         }
 
+        //get the site
+        SiteFactory.get().then(function(res){
 
-        Site.get().then(function(res){
-
+            //no users on site
+            //catch for no user array on the site created API response
             if (!res.data.site.users) {
+                //return register view
                 return $state.go("app.admin.register");
             };
 
-            //site is authorized
+            //user exists on the site
             if (res.data.site.users.length === 0) {
-                //no users prompt registration
+                //no users are registered prompt registration
                 $state.go("app.admin.register");
             } else {
-                //users exist so login
+                //users exist so prompt login
                 $state.go("app.admin.login");
             }
         });
