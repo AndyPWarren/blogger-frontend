@@ -1,8 +1,7 @@
 
 <h3>Register</h3>
 
-
-<button class="btn btn-primary" ui-sref="app.admin.login">login</button>
+<button class="btn btn-primary" ui-sref="app.admin.login" ng-if="site.users.length">login</button>
 
 <!--REGISTRATION FORM-->
 <form name="registerForm"  class="col-md-12" ng-submit="registerUser()" bl-change-focus="input, move-focus-to, password, (@)">
