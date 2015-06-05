@@ -9,13 +9,12 @@ angular.module("blPrototype.admin.register", [
 
 .controller("blRegisterCtrl", [
     "$scope",
-    "$location",
     "$interval",
     "$state",
     "$rootScope",
-    "UserFactory",
+    "AuthFactory",
 
-    function($scope, $location, $interval, $state, $rootScope, UserFactory){
+    function($scope, $interval, $state, $rootScope, AuthFactory){
 
         $scope.registerUser = function registerUser(){
 
@@ -26,29 +25,32 @@ angular.module("blPrototype.admin.register", [
                 password: $scope.register.password
             };
 
-            UserFactory.register(user).then(function(res){
-                if (res.meta.errors === "This email already exists. So try logging in.") {
-                    //user already exists so log in
+            AuthFactory.register(user)
+                .then(function(res){
+                    if (!res.meta.errors) {
+                        //user is created redirect
+                        $state.go('app');
+                    } else if (res.meta.errors === "This email already exists. So try logging in.") {
+                        //user already exists so log in
 
-                    var loginCredientials = {
-                        identifier: user.email,
-                        password: user.password
-                    };
+                        var loginCredientials = {
+                            identifier: user.email,
+                            password: user.password
+                        };
 
-                    $scope.login = "This user exists so logging in ..."
+                        //needs a spinner
+                        $scope.login = "Hello " + user.firstName + " just logging  you in ..."
 
-                    var time = $interval(function(){
-                        UserFactory.login(loginCredientials).then(function(res){
-                            $state.go('app');
-                        });
-                        $interval.cancel(time);
-                    }, 2000);
+                        var time = $interval(function(){
+                            AuthFactory.login(loginCredientials)
+                                .then(function(res){
+                                    $state.go('app');
+                                });
+                            $interval.cancel(time);
+                        }, 2000);
 
-                } else {
-                    //user is created redirect
-                    $state.go('app');
-                }
-            });
+                    }
+                });
 
 
         };
@@ -61,8 +63,12 @@ angular.module("blPrototype.admin.register", [
                 password: "password"
             };
 
-            UserFactory.register(user).then(function(res){
-                if (res.meta.errors === "This email already exists. So try logging in.") {
+            AuthFactory.register(user)
+                .then(function(res){
+                if (!res.meta.errors) {
+                    //user is created redirect
+                    $state.go('app');
+                } else if (res.meta.errors === "This email already exists. So try logging in.") {
                     //user already exists so log in
 
                     var loginCredientials = {
@@ -70,18 +76,17 @@ angular.module("blPrototype.admin.register", [
                         password: user.password
                     };
 
-                    $scope.login = "This user exists so logging in ..."
+                    //needs a spinner
+                    $scope.login = "Hello " + user.firstName + " just logging  you in ..."
 
                     var time = $interval(function(){
-                        UserFactory.login(loginCredientials).then(function(res){
+                        AuthFactory.login(loginCredientials)
+                            .then(function(res){
                             $state.go('app');
                         });
                         $interval.cancel(time);
                     }, 2000);
 
-                } else {
-                    //user is created redirect
-                    $state.go('app');
                 }
             });
         }
