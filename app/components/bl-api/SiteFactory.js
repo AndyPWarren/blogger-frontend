@@ -16,19 +16,51 @@ angular.module("blPrototype.api.sitefactory", [])
      */
     function(SitesResource, $rootScope, $q) {
 
-        var site = {};
+        /**
+         * un authorization function
+         * removes site from rootScope
+         */
+        var unAuth = function(){
+            //remove user from $rootScope
+            $rootScope.site = null;
+        };
 
+        /**
+         * authorization function add user to rootScope
+         * @param {Object} user user details from API
+         */
+        var auth = function(site){
+            //remove user from $rootScope
+            $rootScope.site = site;
+            $rootScope.site;
+        };
+        /**
+         * Create a site
+         * @returns {Object} deferred.promise
+         */
+        var create = function() {
+            var deferred = $q.defer();
+
+            SitesResource.create({domain: $rootScope.host.domain}, function(res){
+                auth(res.data.site);
+                deferred.resolve(res);
+            }, function(err){
+                deferred.reject(err);
+            });
+
+            return deferred.promise;
+        };
         /**
          * Get the site by host domain
          * @returns {Object} deferred.promise
          */
-        site.get = function() {
+        this.get = function() {
             var deferred = $q.defer();
 
             var getError = function siteError(err){
                 if (err.status === 404) {
                     //site doesnt exist create
-                    site.create().then(function(res){
+                    create().then(function(res){
                         deferred.resolve(res);
                     },function(err){
                         deferred.reject(err);
@@ -37,7 +69,7 @@ angular.module("blPrototype.api.sitefactory", [])
             };
 
             var getSuccess = function siteSuccess(res){
-                site.site = res.data.site;
+                auth(res.data.site);
                 deferred.resolve(res);
             };
 
@@ -46,24 +78,11 @@ angular.module("blPrototype.api.sitefactory", [])
 
             return deferred.promise;
         };
-        /**
-         * Create a site
-         * @returns {Object} deferred.promise
-         */
-        site.create = function() {
-            var deferred = $q.defer();
 
-            SitesResource.create({domain: $rootScope.host.domain}, function(res){
-                site.site = res.data.site;
-                deferred.resolve(res);
-            }, function(err){
-                deferred.reject(err);
-            });
 
-            return deferred.promise;
+        return {
+            get: this.get
         };
-
-        return site;
 
     }
 ]);
