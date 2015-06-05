@@ -9,5 +9,4 @@ angular.module("blPrototype.api", [
     "blPrototype.api.sites",
     "blPrototype.api.auth",
     "blPrototype.api.sitefactory",
-    "blPrototype.api.userfactory"
 ]);
