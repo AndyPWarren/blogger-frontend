@@ -68,7 +68,7 @@ angular.module("bl.changeFocus", [])
                  */
                 var cssClass = blChangeFocusConfig.cssClass;
                 /*
-                 * regular expression to catch content in parentheses ()
+                 * regular expression to catch char in parentheses ()
                  * @property regExp
                  */
                 var regExp = /\(([^)]+)\)/;
