@@ -43,12 +43,12 @@ angular.module("blPrototype.header", [
     "$rootScope",
     "$scope",
     "$state",
-    "UserFactory",
+    "AuthFactory",
 
-    function($rootScope, $scope, $state, UserFactory){
+    function($rootScope, $scope, $state, AuthFactory){
 
         $scope.logout = function(){
-            UserFactory.logout().then(function(){
+            AuthFactory.logout().then(function(){
                 $state.go("app")
             });
         };

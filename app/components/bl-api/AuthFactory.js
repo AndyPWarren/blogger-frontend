@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("blPrototype.api.userfactory", [])
+angular.module("blPrototype.api.auth", [])
 
-.factory("UserFactory", [
+    .factory("AuthFactory", [
     "$rootScope",
     "$q",
     "UsersResource",
@@ -16,8 +16,6 @@ angular.module("blPrototype.api.userfactory", [])
      * @returns {Object}   user
      */
     function($rootScope, $q, UsersResource, SiteFactory) {
-
-        var user = {};
 
         /**
          * un authorization function
@@ -42,32 +40,11 @@ angular.module("blPrototype.api.userfactory", [])
         };
 
         /**
-         * get a user
-         * @param   {String} email users email address
-         * @returns {Object} deferred.promise
-         */
-        user.get = function(email) {
-            var deferred = $q.defer();
-
-            var getSuccess = function getSuccess(res){
-                deferred.resolve(res);
-            };
-
-            var getError = function getError(err){
-                deferred.reject(err);
-            };
-
-            UsersResource.get(email, getSuccess, getError);
-
-            return deferred.promise;
-        };
-
-        /**
          * login a user
          * @param   {Object} credientials identifer, password
          * @returns {Object} deferred.promise
          */
-        user.login = function(credientials) {
+        this.login = function(credientials) {
 
             var deferred = $q.defer();
 
@@ -88,7 +65,7 @@ angular.module("blPrototype.api.userfactory", [])
          * logout the user
          * @returns {Object} deferred.promise
          */
-        user.logout = function() {
+        this.logout = function() {
 
             var deferred = $q.defer();
 
@@ -111,11 +88,11 @@ angular.module("blPrototype.api.userfactory", [])
          * @param   {Object}   userDetails
          * @returns {Object} deferred.promise
          */
-        user.register = function(userDetails) {
+        this.register = function(userDetails) {
 
             var deferred = $q.defer();
             //set the user site id
-            userDetails.site = SiteFactory.site.id;
+            userDetails.site = $rootScope.site.id;
 
             var registerSuccess = function registerSuccess(res){
                 auth(res.data.user);
@@ -136,7 +113,7 @@ angular.module("blPrototype.api.userfactory", [])
          * get current logged in user
          * @returns {Object} deferred.promise
          */
-        user.current = function() {
+        this.current = function() {
 
             var deferred = $q.defer();
 
@@ -156,7 +133,12 @@ angular.module("blPrototype.api.userfactory", [])
             return deferred.promise;
         };
 
-        return user;
+        return {
+            login: this.login,
+            logout: this.logout,
+            register: this.register,
+            current: this.current
+        };
 
     }
 ]);

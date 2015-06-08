@@ -9,16 +9,16 @@ angular.module("blPrototype.admin.login", [])
     "$scope",
     "$state",
     "$rootScope",
-    "UserFactory",
-
+    "AuthFactory",
     /**
      * @constructor
      * @param {Object}   $scope
      * @param {Object}   $state
-     * @param {Object} $rootScope  used for host info
-     * @param {Object} UserFactory user functions
+     * @param {Object} $rootScope   used for host info
+     * @param {Object} UserResource Angular resource for accessing users endpoint
+     * @param {Object} AuthFactory  authentication of user
      */
-    function($scope, $state, $rootScope, UserFactory){
+    function($scope, $state, $rootScope, AuthFactory){
 
     $scope.resetPasswordError = function resetPasswordError() {
         $scope.loginForm.password.$error.incorrect = false;
@@ -35,9 +35,17 @@ angular.module("blPrototype.admin.login", [])
             password: "password"
         };
 
-        UserFactory.login(credentials).then(function(res){
-            $state.go("app");
-        });
+        /**
+         * login a user
+         * @param   {Object} credientials
+         */
+        AuthFactory.login(credentials)
+            .then(function(res){
+                $state.go('app');
+            })
+            .catch(function(res){
+                //error logging in
+            });
     };
     /**
      * submit login form details
@@ -54,20 +62,23 @@ angular.module("blPrototype.admin.login", [])
             identifier: $scope.login.email + $rootScope.host.emailDomain,
             password: $scope.login.password
         };
-
-        UserFactory.login(credientials).then(function(res){
-
-            if (!res.meta.errors) {
+        /**
+         * login a user
+         * @param   {Object} credientials
+         */
+        AuthFactory.login(credientials)
+            .then(function(res){
                 $state.go('app');
-            }
-
-            if (res.meta.errors === "That email doesn't seem right") {
-                $scope.loginForm.email.$error.doesntExist = true;
-
-            } else if (res.meta.errors === "Whoa, that password wasn't quite right!") {
-                $scope.loginForm.password.$error.incorrect = true;
-            }
-        });
+            })
+            .catch(function(err){
+                //email doesnt exist
+                if (err.data.meta.errors === "That email doesn't seem right") {
+                    $scope.loginForm.email.$error.doesntExist = true;
+                    //password was incorrect
+                } else if (err.data.meta.errors === "Whoa, that password wasn't quite right!") {
+                    $scope.loginForm.password.$error.incorrect = true;
+                }
+            })
     };
 
 }]);

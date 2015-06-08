@@ -54,8 +54,9 @@ angular.module("blPrototype", [
 .run([
     "$rootScope",
     "$location",
-    "UserFactory",
-    function($rootScope, $location, UserFactory) {
+    "AuthFactory",
+    "SiteFactory",
+    function($rootScope, $location, AuthFactory, SiteFactory) {
 
         $rootScope.host = {};
 
@@ -67,7 +68,11 @@ angular.module("blPrototype", [
         }
         $rootScope.host.emailDomain = "@" + $rootScope.host.domain;
 
-        UserFactory.current().then();
+        AuthFactory.current();
+
+        SiteFactory.get();
+
+
     }
 ]);
 

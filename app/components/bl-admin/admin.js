@@ -35,6 +35,13 @@ angular.module("blPrototype.admin", [
                     "admin@app.admin" : {
                         templateUrl: "components/bl-admin/login/login.html",
                         controller: "blLoginCtrl",
+                        resolve: {
+                            user: ["$rootScope", "$state", function ($rootScope, $state) {
+                                if ($rootScope.user) {
+                                    return $state.go("app.admin");
+                                }
+                            }]
+                        }
                     }
                 }
             })
@@ -44,6 +51,13 @@ angular.module("blPrototype.admin", [
                     "admin@app.admin" : {
                         templateUrl: "components/bl-admin/register/register.html",
                         controller: "blRegisterCtrl",
+                        resolve: {
+                            user: ["$rootScope", "$state", function ($rootScope, $state) {
+                                if ($rootScope.user) {
+                                    return $state.go("app.admin");
+                                }
+                            }]
+                        }
                     }
                 }
             });
@@ -60,34 +74,35 @@ angular.module("blPrototype.admin", [
     "$scope",
     "$state",
     "SiteFactory",
-    "UserFactory",
+    "AuthFactory",
     /**
      * @constructor
      * @param   {Object}   $rootScope
      * @param   {Object}   $scope
      * @param   {Object}   $state
-     * @param   {Object}   SiteFactory wrapper for site
-     * @param   {[[Type]]} UserFactory wrapper for user
+     * @param   {Object}   SitesResource wrapper for site
+     * @param   {[[Type]]} AuthFactory wrapper for user
      */
-    function($rootScope, $scope, $state, SiteFactory, UserFactory){
+    function($rootScope, $scope, $state, SiteFactory, AuthFactory){
 
-        $scope.site = {};
+
 
         $scope.logout = function (){
-            UserFactory.logout().then(function(res){
+            AuthFactory.logout().then(function(res){
                 //direct to posts view
                 $state.go("app");
             })
         };
 
-        //if user exists
+        //if user s logged in
         if ($rootScope.user) {
             //dont proceed with displaying a view
-            return $scope.site.status = "please logout";
+            return $scope.userStatus = "please logout";
         }
 
         //get the site
-        SiteFactory.get().then(function(res){
+        SiteFactory.get()
+        .then(function(res){
 
             //no users on site
             //catch for no user array on the site created API response
@@ -104,6 +119,10 @@ angular.module("blPrototype.admin", [
                 //users exist so prompt login
                 $state.go("app.admin.login");
             }
+        })
+        .catch(function(res){
+            console.log("catch");
+            return console.log(res);
         });
     }
 ]);
