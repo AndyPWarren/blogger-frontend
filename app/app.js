@@ -12,7 +12,6 @@ angular.module("blPrototype", [
     "blPrototype.admin",
     "ngRoute",
     "ui.router",
-    "config",
     "ui.bootstrap"
 ])
 
