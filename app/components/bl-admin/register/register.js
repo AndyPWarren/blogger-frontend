@@ -17,7 +17,8 @@ angular.module("blPrototype.admin.register", [])
      * @param {Object} $interval
      * @param {Object} $state
      * @param {Object} $rootScope
-     * @param {Object} AuthFactory user related functions promise factory     */
+     * @param {Object} AuthFactory user related functions promise factory
+     */
     function($scope, $interval, $state, $rootScope, AuthFactory){
 
         /**
