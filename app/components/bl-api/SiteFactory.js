@@ -15,24 +15,13 @@ angular.module("blPrototype.api.sitefactory", [])
      * @returns {Object}   Site
      */
     function(SitesResource, $rootScope, $q) {
-
-        /**
-         * un authorization function
-         * removes site from rootScope
-         */
-        var unAuth = function(){
-            //remove user from $rootScope
-            $rootScope.site = null;
-        };
-
         /**
          * authorization function add user to rootScope
          * @param {Object} user user details from API
          */
         var auth = function(site){
-            //remove user from $rootScope
+            //add site tp $rootScope
             $rootScope.site = site;
-            $rootScope.site;
         };
         /**
          * Create a site
@@ -73,7 +62,7 @@ angular.module("blPrototype.api.sitefactory", [])
                 deferred.resolve(res);
             };
 
-            SitesResource.get({domain: $rootScope.host.domain}, getSuccess, getError)
+            SitesResource.get({domain: $rootScope.host.domain}, getSuccess, getError);
 
 
             return deferred.promise;

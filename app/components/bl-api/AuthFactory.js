@@ -6,7 +6,6 @@ angular.module("blPrototype.api.auth", [])
     "$rootScope",
     "$q",
     "UsersResource",
-    "SiteFactory",
     /**
      * @constructor
      * @param   {Object}   $rootScope
@@ -15,7 +14,7 @@ angular.module("blPrototype.api.auth", [])
      * @param   {Object}   SiteFactory   factory for site manipulation
      * @returns {Object}   user
      */
-    function($rootScope, $q, UsersResource, SiteFactory) {
+    function($rootScope, $q, UsersResource) {
 
         /**
          * un authorization function

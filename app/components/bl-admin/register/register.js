@@ -31,8 +31,8 @@ angular.module("blPrototype.admin.register", [])
              * registerSuccess promise resolution
              * @param {Object} res
              */
-            $scope.registerSuccess = function registerSuccess(res) {
-                $state.go('app');
+            $scope.registerSuccess = function registerSuccess() {
+                $state.go("app");
             };
 
             /**
@@ -50,14 +50,14 @@ angular.module("blPrototype.admin.register", [])
 
                     //NEEDS A SPINNER
                     //inform user they are being logged in
-                    $scope.login = "Hello " + user.firstName + " just logging  you in ..."
+                    $scope.login = "Hello " + user.firstName + " just logging  you in ...";
                     /**
                      * time function to log a user in after a duration
                      */
                     var time = $interval(function(){
                         AuthFactory.login(loginCredientials)
-                            .then(function(res){
-                                $state.go('app');
+                            .then(function(){
+                                $state.go("app");
                             });
                         $interval.cancel(time);
                     }, 2000);

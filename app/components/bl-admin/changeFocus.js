@@ -4,7 +4,7 @@
  */
 angular.module("bl.changeFocus", [])
 
-.provider('blChangeFocusConfig', function () {
+.provider("blChangeFocusConfig", function () {
 
     /**
      * set cssClass
@@ -34,8 +34,8 @@ angular.module("bl.changeFocus", [])
  * @class blChangeFocus
  */
 .directive("blChangeFocus",[
-    '$interval',
-    'blChangeFocusConfig',
+    "$interval",
+    "blChangeFocusConfig",
     function ($interval, blChangeFocusConfig){
         return {
             restrict: "A",
@@ -45,9 +45,9 @@ angular.module("bl.changeFocus", [])
                  * take arguments supplied in directive call and split by ,
                  * @property argsArr
                  */
-                var argsArr = attrs.blChangeFocus.split(', ');
+                var argsArr = attrs.blChangeFocus.split(", ");
                 /*
-                 * first, second and third element id's from supplied arguments
+                 * first, second and third element id"s from supplied arguments
                  * @property firstId
                  * @property secondId
                  * @property thirdId
@@ -85,12 +85,12 @@ angular.module("bl.changeFocus", [])
 
                 //Deduce logic based on 2 or 3 user arguments
                 if (argsArr.length === 2) {
-                    //if 2 element id's have been provided
+                    //if 2 element id"s have been provided
                     //move focus to second element no css change
                     var firstElement = $element.find(firstId);
                     var secondElement = $element.find(secondId);
 
-                    firstElement.on('keypress', function(event){
+                    firstElement.on("keypress", function(event){
                         if (event.keyCode === keyCode) {
 
                             firstElement.blur();
@@ -102,13 +102,13 @@ angular.module("bl.changeFocus", [])
                         }
                     });
                 } else if (argsArr.length === 3) {
-                    //if 3 element id's have been provided
+                    //if 3 element id"s have been provided
                     //move focus to second element and add css class
                     //then after 2s remove css class and move focus to third element
                     var firstElement = $element.find(firstId);
                     var secondElement = $element.find(secondId);
                     var thirdElement = $element.find(thirdId);
-                    firstElement.on('keypress', function(event){
+                    firstElement.on("keypress", function(event){
                         if (event.keyCode === keyCode) {
 
                             firstElement.blur();

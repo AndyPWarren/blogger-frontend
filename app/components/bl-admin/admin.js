@@ -24,7 +24,7 @@ angular.module("blPrototype.admin", [
                         controller: "blHeaderCtrl"
                     },
                     "content@": {
-                        templateUrl: './components/bl-admin/admin.html',
+                        templateUrl: "./components/bl-admin/admin.html",
                         controller: "blAdminCtrl",
                     }
                 }
@@ -66,7 +66,7 @@ angular.module("blPrototype.admin", [
 ])
 
 .config(["blChangeFocusConfigProvider", function(blChangeFocusConfigProvider){
-    blChangeFocusConfigProvider.setCssClass('flash-user');
+    blChangeFocusConfigProvider.setCssClass("flash-user");
 }])
 
 .controller("blAdminCtrl", [
@@ -88,16 +88,17 @@ angular.module("blPrototype.admin", [
 
 
         $scope.logout = function (){
-            AuthFactory.logout().then(function(res){
+            AuthFactory.logout().then(function(){
                 //direct to posts view
                 $state.go("app");
-            })
+            });
         };
 
         //if user s logged in
         if ($rootScope.user) {
             //dont proceed with displaying a view
-            return $scope.userStatus = "please logout";
+            $scope.userStatus = "please logout";
+            return $scope.userStatus;
         }
 
         //get the site
@@ -109,7 +110,7 @@ angular.module("blPrototype.admin", [
             if (!res.data.site.users) {
                 //return register view
                 return $state.go("app.admin.register");
-            };
+            }
 
             //user exists on the site
             if (res.data.site.users.length === 0) {

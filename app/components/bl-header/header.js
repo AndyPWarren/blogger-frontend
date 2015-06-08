@@ -49,20 +49,16 @@ angular.module("blPrototype.header", [
 
         $scope.logout = function(){
             AuthFactory.logout().then(function(){
-                $state.go("app")
+                $state.go("app");
             });
         };
     }
 ])
 
 
-.controller("DropdownCtrl", ["$scope", "$log", function($scope, $log){
+.controller("DropdownCtrl", ["$scope", function($scope){
     $scope.status = {
         isopen: false
-    };
-
-    $scope.toggled = function(open) {
-        $log.log('Dropdown is now: ', open);
     };
 
     $scope.toggleDropdown = function($event) {

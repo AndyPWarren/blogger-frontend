@@ -40,10 +40,10 @@ angular.module("blPrototype.admin.login", [])
          * @param   {Object} credientials
          */
         AuthFactory.login(credentials)
-            .then(function(res){
-                $state.go('app');
+            .then(function(){
+                $state.go("app");
             })
-            .catch(function(res){
+            .catch(function(){
                 //error logging in
             });
     };
@@ -54,7 +54,7 @@ angular.module("blPrototype.admin.login", [])
     $scope.submitLoginForm = function submitLoginForm(){
 
         /**
-         * user's email and password from form
+         * user"s email and password from form
          * @name credientials
          * @type {Object}
          */
@@ -67,8 +67,8 @@ angular.module("blPrototype.admin.login", [])
          * @param   {Object} credientials
          */
         AuthFactory.login(credientials)
-            .then(function(res){
-                $state.go('app');
+            .then(function(){
+                $state.go("app");
             })
             .catch(function(err){
                 //email doesnt exist
@@ -78,7 +78,7 @@ angular.module("blPrototype.admin.login", [])
                 } else if (err.data.meta.errors === "Whoa, that password wasn't quite right!") {
                     $scope.loginForm.password.$error.incorrect = true;
                 }
-            })
+            });
     };
 
 }]);
