@@ -68,20 +68,16 @@ angular.module("blPrototype.admin.login", [])
          */
         AuthFactory.login(credientials)
             .then(function(res){
-                //no errors user is logged in
-                if (!res.meta.errors) {
-                    $state.go('app');
-                }
-                //email doesnt exist
-                if (res.meta.errors === "That email doesn't seem right") {
-                    $scope.loginForm.email.$error.doesntExist = true;
-                //password was incorrect
-                } else if (res.meta.errors === "Whoa, that password wasn't quite right!") {
-                    $scope.loginForm.password.$error.incorrect = true;
-                }
+                $state.go('app');
             })
             .catch(function(err){
-                //error logging in
+                //email doesnt exist
+                if (err.data.meta.errors === "That email doesn't seem right") {
+                    $scope.loginForm.email.$error.doesntExist = true;
+                    //password was incorrect
+                } else if (err.data.meta.errors === "Whoa, that password wasn't quite right!") {
+                    $scope.loginForm.password.$error.incorrect = true;
+                }
             })
     };
 

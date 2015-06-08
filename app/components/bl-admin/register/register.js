@@ -65,30 +65,52 @@ angular.module("blPrototype.admin.register", [
 
             AuthFactory.register(user)
                 .then(function(res){
-                if (!res.meta.errors) {
-                    //user is created redirect
-                    $state.go('app');
-                } else if (res.meta.errors === "This email already exists. So try logging in.") {
-                    //user already exists so log in
+                    if (!res.meta.errors) {
+                        //user is created redirect
+                        $state.go('app');
+                    } else if (res.meta.errors === "This email already exists. So try logging in.") {
+                        //user already exists so log in
 
-                    var loginCredientials = {
-                        identifier: user.email,
-                        password: user.password
-                    };
+                        var loginCredientials = {
+                            identifier: user.email,
+                            password: user.password
+                        };
 
-                    //needs a spinner
-                    $scope.login = "Hello " + user.firstName + " just logging  you in ..."
+                        //needs a spinner
+                        $scope.login = "Hello " + user.firstName + " just logging  you in ..."
 
-                    var time = $interval(function(){
-                        AuthFactory.login(loginCredientials)
-                            .then(function(res){
-                            $state.go('app');
-                        });
-                        $interval.cancel(time);
-                    }, 2000);
+                        var time = $interval(function(){
+                            AuthFactory.login(loginCredientials)
+                                .then(function(res){
+                                $state.go('app');
+                            });
+                            $interval.cancel(time);
+                        }, 2000);
 
-                }
-            });
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
+                    if (err.data.meta.errors === "This email already exists. So try logging in.") {
+                        //user already exists so log in
+                        var loginCredientials = {
+                            identifier: user.email,
+                            password: user.password
+                        };
+
+                        //needs a spinner
+                        $scope.login = "Hello " + user.firstName + " just logging  you in ..."
+
+                        var time = $interval(function(){
+                            AuthFactory.login(loginCredientials)
+                                .then(function(res){
+                                $state.go('app');
+                            });
+                            $interval.cancel(time);
+                        }, 2000);
+
+                    }
+                });
         }
     }
 ]);
