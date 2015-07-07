@@ -20,66 +20,77 @@ angular.module("blPrototype.admin.login", [])
      */
     function($scope, $state, $rootScope, AuthFactory){
 
-    $scope.resetPasswordError = function resetPasswordError() {
-        $scope.loginForm.password.$error.incorrect = false;
-    };
+        $scope.resetPasswordError = function resetPasswordError() {
+            $scope.loginForm.password.$error.incorrect = false;
+        };
 
-    $scope.resetEmailError = function resetEmailError() {
-        $scope.loginForm.email.$error.doesntExist = false;
-    };
+        $scope.resetEmailError = function resetEmailError() {
+            $scope.loginForm.email.$error.doesntExist = false;
+        };
 
-    $scope.login = function(){
+        $scope.login = function(){
 
-        var credentials = {
-            identifier: "test.user" + $rootScope.host.emailDomain,
-            password: "password"
+            var credentials = {
+                identifier: "test.user" + $rootScope.host.emailDomain,
+                password: "password"
+            };
+
+            /**
+             * login a user
+             * @param   {Object} credientials
+             */
+            AuthFactory.login(credentials)
+                .then(function(){
+                    $state.go("app");
+                })
+                .catch(function(){
+                    //error logging in
+                });
+        };
+        /**
+         * login success
+         * @param {Object} res response from AuthFactory
+         */
+        $scope.loginSuccess = function loginSuccess(){
+            $state.go("app");
         };
 
         /**
-         * login a user
-         * @param   {Object} credientials
+         * login error
+         * @param {Object} err error from AuthFactory
          */
-        AuthFactory.login(credentials)
-            .then(function(){
-                $state.go("app");
-            })
-            .catch(function(){
-                //error logging in
-            });
-    };
-    /**
-     * submit login form details
-     * @returns {string} error message
-     */
-    $scope.submitLoginForm = function submitLoginForm(){
-
-        /**
-         * user"s email and password from form
-         * @name credientials
-         * @type {Object}
-         */
-        var credientials = {
-            identifier: $scope.login.email + $rootScope.host.emailDomain,
-            password: $scope.login.password
+        $scope.loginError = function loginError(err) {
+            //email doesnt exist
+            if (err.data.meta.errors === "That email doesn't seem right") {
+                $scope.loginForm.email.$error.doesntExist = true;
+                //password was incorrect
+            } else if (err.data.meta.errors === "Whoa, that password wasn't quite right!") {
+                $scope.loginForm.password.$error.incorrect = true;
+            }
         };
         /**
-         * login a user
-         * @param   {Object} credientials
+         * submit login form details
+         * @returns {string} error message
          */
-        AuthFactory.login(credientials)
-            .then(function(){
-                $state.go("app");
-            })
-            .catch(function(err){
-                //email doesnt exist
-                if (err.data.meta.errors === "That email doesn't seem right") {
-                    $scope.loginForm.email.$error.doesntExist = true;
-                    //password was incorrect
-                } else if (err.data.meta.errors === "Whoa, that password wasn't quite right!") {
-                    $scope.loginForm.password.$error.incorrect = true;
-                }
-            });
-    };
+        $scope.submitLoginForm = function submitLoginForm(){
+
+            /**
+             * user's email and password from form
+             * @name credientials
+             * @type {Object}
+             */
+            $scope.credientials = {
+                identifier: $scope.login.email + $rootScope.host.emailDomain,
+                password: $scope.login.password
+            };
+            /**
+             * login a user
+             * @param   {Object} credientials
+             */
+            AuthFactory.login($scope.credientials)
+                .then($scope.loginSuccess)
+                .catch($scope.loginError);
+        };
 
 }]);
 
