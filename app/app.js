@@ -68,7 +68,7 @@ angular.module("blPrototype", [
         $rootScope.host.emailDomain = "@" + $rootScope.host.domain;
 
         SiteFactory.get().then(function(){
-            AuthFactory.current()
+            AuthFactory.current();
         });
 
     }

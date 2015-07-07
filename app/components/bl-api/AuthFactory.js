@@ -32,7 +32,7 @@ angular.module("blPrototype.api.auth", [])
          * @param {Object} user user details from API
          */
         var auth = function(user){
-            if (!$rootScope.site) return;
+            if (!$rootScope.site) {return;}
             if (user.site === $rootScope.site.id) {
                 //set an auth flag as true on $rootScope
                 $rootScope.isAuthenticated = true;
