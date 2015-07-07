@@ -24,7 +24,7 @@ angular.module("blPrototype.admin", [
                         controller: "blHeaderCtrl"
                     },
                     "content@": {
-                        templateUrl: './components/bl-admin/admin.html',
+                        templateUrl: "./components/bl-admin/admin.html",
                         controller: "blAdminCtrl",
                     }
                 }
@@ -66,13 +66,14 @@ angular.module("blPrototype.admin", [
 ])
 
 .config(["blChangeFocusConfigProvider", function(blChangeFocusConfigProvider){
-    blChangeFocusConfigProvider.setCssClass('flash-user');
+    blChangeFocusConfigProvider.setCssClass("flash-user");
 }])
 
 .controller("blAdminCtrl", [
     "$rootScope",
     "$scope",
     "$state",
+    "$log",
     "SiteFactory",
     "AuthFactory",
     /**
@@ -83,35 +84,30 @@ angular.module("blPrototype.admin", [
      * @param   {Object}   SitesResource wrapper for site
      * @param   {[[Type]]} AuthFactory wrapper for user
      */
-    function($rootScope, $scope, $state, SiteFactory, AuthFactory){
-
-
+    function($rootScope, $scope, $state, $log, SiteFactory, AuthFactory){
 
         $scope.logout = function (){
-            AuthFactory.logout().then(function(res){
-                //direct to posts view
-                $state.go("app");
-            })
+            AuthFactory.logout()
+                .then(function(){
+                    //direct to posts view
+                    $state.go("app");
+                });
         };
-
         //if user s logged in
         if ($rootScope.user) {
             //dont proceed with displaying a view
-            return $scope.userStatus = "please logout";
+            $scope.userStatus = "please logout";
+            return $scope.userStatus;
         }
 
-        //get the site
-        SiteFactory.get()
-        .then(function(res){
-
+        $scope.getSiteSuccess = function getSiteSuccess(res) {
             //no users on site
             //catch for no user array on the site created API response
             if (!res.data.site.users) {
                 //return register view
                 return $state.go("app.admin.register");
-            };
+            }
 
-            //user exists on the site
             if (res.data.site.users.length === 0) {
                 //no users are registered prompt registration
                 $state.go("app.admin.register");
@@ -119,11 +115,21 @@ angular.module("blPrototype.admin", [
                 //users exist so prompt login
                 $state.go("app.admin.login");
             }
-        })
-        .catch(function(res){
-            console.log("catch");
-            return console.log(res);
-        });
+        };
+
+        $scope.getSiteError = function getSiteError(err){
+            $log.error(err);
+        };
+
+        $scope.getSite = function getSite() {
+            //get the site
+            SiteFactory.get()
+                .then($scope.getSiteSuccess)
+                .catch($scope.getSiteError);
+        };
+
+        $scope.getSite();
+
     }
 ]);
 

@@ -12,7 +12,6 @@ angular.module("blPrototype", [
     "blPrototype.admin",
     "ngRoute",
     "ui.router",
-    "config",
     "ui.bootstrap"
 ])
 
@@ -22,7 +21,7 @@ angular.module("blPrototype", [
             url: "/",
             views: {
                 "content": {
-                    templateUrl: './components/bl-posts/posts.html',
+                    templateUrl: "./components/bl-posts/posts.html",
                     controller: "blPostsCtrl"
                 },
                 "nav": {
@@ -30,7 +29,7 @@ angular.module("blPrototype", [
                     controller: "blHeaderCtrl",
                 }
             }
-        })
+        });
     }
 ])
 
@@ -46,7 +45,7 @@ angular.module("blPrototype", [
 
         $httpProvider.defaults.useXDomain = true;
         $httpProvider.defaults.withCredentials = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        delete $httpProvider.defaults.headers.common["X-Requested-With"];
 
     }
 ])
@@ -61,17 +60,16 @@ angular.module("blPrototype", [
         $rootScope.host = {};
 
         if ($location.host() === "localhost") {
-            //append '.com' to localhost for testing
+            //append ".com" to localhost for testing
             $rootScope.host.domain = $location.host() + ".com";
         } else {
             $rootScope.host.domain = $location.host();
         }
         $rootScope.host.emailDomain = "@" + $rootScope.host.domain;
 
-        AuthFactory.current();
-
-        SiteFactory.get();
-
+        SiteFactory.get().then(function(){
+            AuthFactory.current()
+        });
 
     }
 ]);
