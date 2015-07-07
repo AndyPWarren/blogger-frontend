@@ -21,11 +21,11 @@ angular.module("blPrototype", [
             url: "/",
             views: {
                 "content": {
-                    templateUrl: "./components/bl-posts/posts.html",
+                    templateUrl: "./components/posts/posts.html",
                     controller: "blPostsCtrl"
                 },
                 "nav": {
-                    templateUrl: "./components/bl-header/header.html",
+                    templateUrl: "./components/header/header.html",
                     controller: "blHeaderCtrl",
                 }
             }
