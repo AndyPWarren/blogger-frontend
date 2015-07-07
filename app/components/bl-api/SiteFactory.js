@@ -20,7 +20,7 @@ angular.module("blPrototype.api.sitefactory", [])
          * @param {Object} user user details from API
          */
         var auth = function(site){
-            //add site tp $rootScope
+            //add site to $rootScope
             $rootScope.site = site;
         };
         /**

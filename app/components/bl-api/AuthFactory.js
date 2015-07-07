@@ -32,10 +32,13 @@ angular.module("blPrototype.api.auth", [])
          * @param {Object} user user details from API
          */
         var auth = function(user){
-            //set an auth flag as true on $rootScope
-            $rootScope.isAuthenticated = true;
-            //remove user from $rootScope
-            $rootScope.user = user;
+            if (!$rootScope.site) return;
+            if (user.site === $rootScope.site.id) {
+                //set an auth flag as true on $rootScope
+                $rootScope.isAuthenticated = true;
+                //remove user from $rootScope
+                $rootScope.user = user;
+            }
         };
 
         /**
