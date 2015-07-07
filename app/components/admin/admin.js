@@ -20,11 +20,11 @@ angular.module("blPrototype.admin", [
                 url: "admin",
                 views: {
                     "nav": {
-                        templateUrl: "./components/bl-header/header.html",
+                        templateUrl: "./components/header/header.html",
                         controller: "blHeaderCtrl"
                     },
                     "content@": {
-                        templateUrl: "./components/bl-admin/admin.html",
+                        templateUrl: "./components/admin/admin.html",
                         controller: "blAdminCtrl",
                     }
                 }
@@ -33,7 +33,7 @@ angular.module("blPrototype.admin", [
                 url: "/login",
                 views:{
                     "admin@app.admin" : {
-                        templateUrl: "components/bl-admin/login/login.html",
+                        templateUrl: "components/admin/login/login.html",
                         controller: "blLoginCtrl",
                         resolve: {
                             user: ["$rootScope", "$state", function ($rootScope, $state) {
@@ -49,7 +49,7 @@ angular.module("blPrototype.admin", [
                 url: "/register",
                 views:{
                     "admin@app.admin" : {
-                        templateUrl: "components/bl-admin/register/register.html",
+                        templateUrl: "components/admin/register/register.html",
                         controller: "blRegisterCtrl",
                         resolve: {
                             user: ["$rootScope", "$state", function ($rootScope, $state) {
