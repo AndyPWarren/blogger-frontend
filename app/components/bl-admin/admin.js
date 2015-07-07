@@ -103,7 +103,6 @@ angular.module("blPrototype.admin", [
         $scope.getSiteSuccess = function getSiteSuccess(res) {
             //no users on site
             //catch for no user array on the site created API response
-            console.log(res);
             if (!res.data.site.users) {
                 //return register view
                 return $state.go("app.admin.register");

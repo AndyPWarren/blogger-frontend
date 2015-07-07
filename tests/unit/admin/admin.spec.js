@@ -71,18 +71,7 @@ describe("Admin", function (){
             expect(mockSiteFactory.get).toHaveBeenCalled();
         });
 
-        it("should call getSiteSuccess if SiteFactory.get has been resolved", inject(function(SiteFactory) {
-            passPromise = true;
-            spyOn(scope, "getSiteSuccess");
-            console.log(scope);
-            console.log(rootScope);
-            scope.getSite();
-            scope.$digest();
-            expect(scope.getSiteSuccess).toHaveBeenCalled();
-        }));
-
         it("should call getSiteError if SiteFactory.get has been rejected", inject(function(SiteFactory) {
-            var err = {data: {site: {users: [1]}}};
             passPromise = false;
             spyOn(scope, "getSiteError");
             scope.getSite();
@@ -90,10 +79,17 @@ describe("Admin", function (){
             expect(scope.getSiteError).toHaveBeenCalled();
         }));
 
+
+        it("should call getSiteSuccess if SiteFactory.get has been resolved", inject(function(SiteFactory) {
+            passPromise = true;
+            spyOn(scope, "getSiteSuccess");
+            scope.getSite();
+            scope.$digest();
+            expect(scope.getSiteSuccess).toHaveBeenCalled();
+        }));
+
+
     });
-
-
-
 
     describe("User  is logged in", function (){
 
